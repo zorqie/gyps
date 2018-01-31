@@ -7,6 +7,7 @@ import EventsListPage from '../ui/EventsListPage.jsx'
 import EventPage from '../ui/event/EventPage.jsx'
 import GigDetailsPage from '../ui/gig/GigDetailsPage.jsx'
 import LoginForm from '../ui/LoginForm.jsx'
+import SignupForm from '../ui/SignupForm.jsx'
 
 const Home = () => (
 	<div  >
@@ -34,6 +35,7 @@ export default class App extends React.Component {
 		const { feathers } = this.props
 		feathers.on('user.login', user => this.setState({user}))
 		feathers.on('logout', () => this.setState({ user: null }))
+		feathers.on('error', console.error)
 	}
 	render() {
 		const { feathers, history } = this.props
@@ -49,6 +51,7 @@ export default class App extends React.Component {
 						<Route path="/event/:eventId" render={p => <EventPage {...this.props} {...p} user={user} />} />
 						<Route path="/gig/:gigId" render={p => <GigDetailsPage {...this.props} {...p} user={user} />} />
 						<Route path="/login" render={p => <LoginForm {...this.props} {...p}/>} />
+						<Route path="/signup" render={p => <SignupForm {...this.props} {...p}/>} />
 						<Route path="/logout" render={p => (feathers.logout(), feathers.emit('logout'), p.history.push('/')), null} />
 						<Route component={NotFound} />
 					</Switch>
