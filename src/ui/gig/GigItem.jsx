@@ -1,4 +1,7 @@
 import React from 'react'
+
+import { Link } from 'react-router-dom'
+
 import { Button, Icon, Image, Item } from 'semantic-ui-react'
 
 import GigTimespan from '../GigTimespan.jsx'
@@ -14,8 +17,9 @@ const isAttending = (gig, tickets, status) => {
 
 
 export default function GigItem({ gig, tickets, status='Attending', ...others }) {
+	const { shifts } = gig
 	return (
-		<Item>
+		<Item as={Link} to={`/gig/${gig._id}`}>
 			<Item.Image 
 				wrapped
 				size='small' 
@@ -25,12 +29,14 @@ export default function GigItem({ gig, tickets, status='Attending', ...others })
 				<Item.Header as="h2" >{gig.name}</Item.Header>
 				<Item.Extra style={{marginTop:0}}>
 					<GigTimespan gig={gig} />
-					<JoinLeaveButton 
+					{shifts && shifts.length 
+						&& <Button floated='right'>Shifted</Button>
+						|| <JoinLeaveButton 
 						gig={gig} 
 						{...others} 
 						floated='right'
 						attending={isAttending(gig, tickets, status)}
-					/>
+					/>}
 				</Item.Extra>
 				<Item.Description>{gig.description}</Item.Description>
 			</Item.Content>

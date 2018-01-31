@@ -39,7 +39,7 @@ const UserDropdown = ({user, match, feathers}) => (
 
 export default function AppMenu(props) {
 	const { feathers, user } = props
-	console.log("AppMenu.props", props.match, user)
+	console.log("AppMenu.props", props.match)
 	return <Menu fixed='top' inverted>
 			<Container>
 				<Menu.Item header as={Link} to="/">

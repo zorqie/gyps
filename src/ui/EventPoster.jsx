@@ -33,7 +33,7 @@ export default class EventPoster extends React.Component {
 					<Card.Content>
 						<Card.Description>
 							<p>{event.description}</p>
-							<Link to={`/events/${event._id}`}>More Info</Link>
+							<Link to={`/event/${event._id}`}>More Info</Link>
 						</Card.Description>
 					</Card.Content>
 				</Card>

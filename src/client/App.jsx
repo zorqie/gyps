@@ -5,6 +5,7 @@ import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment 
 import AppMenu from '../ui/AppMenu.jsx'
 import EventsListPage from '../ui/EventsListPage.jsx'
 import EventPage from '../ui/event/EventPage.jsx'
+import GigDetailsPage from '../ui/gig/GigDetailsPage.jsx'
 import LoginForm from '../ui/LoginForm.jsx'
 
 const Home = () => (
@@ -38,14 +39,15 @@ export default class App extends React.Component {
 		const { feathers, history } = this.props
 		const { user } = this.state
 		return (
-			<div>
+			<div style={{ marginTop: '7em' }}>
 				<Route path="/:section?/:id?/:mode?" render={p => <AppMenu {...this.props} {...p} user={user} />} />
 
-				<Container text style={{ marginTop: '7em' }}>
+				<Container text >
 					<Switch>
 						<Route path="/" exact component={Home} />
 						<Route path="/events" exact render={p => <EventsListPage {...this.props} />} />
-						<Route path="/events/:eventId" render={p => <EventPage {...this.props} {...p} user={user} />} />
+						<Route path="/event/:eventId" render={p => <EventPage {...this.props} {...p} user={user} />} />
+						<Route path="/gig/:gigId" render={p => <GigDetailsPage {...this.props} {...p} user={user} />} />
 						<Route path="/login" render={p => <LoginForm {...this.props} {...p}/>} />
 						<Route path="/logout" render={p => (feathers.logout(), feathers.emit('logout'), p.history.push('/')), null} />
 						<Route component={NotFound} />

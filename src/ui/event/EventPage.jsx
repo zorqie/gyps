@@ -5,7 +5,7 @@ import { Link, Route, Redirect, Switch } from 'react-router-dom'
 import EventDetails from './EventDetails.jsx'
 // import GigDetailsPage from './GigDetailsPage.jsx'
 // import LineupPage from './lineup.jsx'
-// import Schedule from './my-schedule.jsx'
+import Schedule from '../Schedule.jsx'
 // import VenuePage from './VenuePage.jsx'
 // import ActDetailsPage from './ActDetailsPage.jsx'
 import { ticketsByGig } from '../utils.jsx'
@@ -51,23 +51,22 @@ export default class EventPage extends React.Component {
 	async fetchMore(user) {
 		const { eventId } = this.props.match.params
 		const { feathers } = this.props
-		console.log("Fetching more...", user)
-		try {
-			if (user) {
-				const gigs = await feathers.service('gigs').find({
-					query: {
-						parent: eventId,
-						type: { $in: optional }, // TODO we should filter later
-						$sort: { start: 1 }
-					}
-				})
-				console.log("GOT GIGGLES", gigs)
-				this.setState({ event: {...this.state.event, gigs: gigs.data || gigs } })
-				const tickets = await feathers.service('tickets').find()
-				this.setState({ tickets: tickets.data || tickets })
+		// console.log("Fetching more...", user)
+		if (user) {
+			try {
+					const gigs = await feathers.service('gigs').find({
+						query: {
+							parent: eventId,
+							type: { $in: optional }, // TODO we should filter later
+							$sort: { start: 1 }
+						}
+					})
+					this.setState({ event: {...this.state.event, gigs: gigs.data || gigs } })
+					const tickets = await feathers.service('tickets').find()
+					this.setState({ tickets: tickets.data || tickets })
+			} catch (e) {
+				console.error("Feching More ERROR: ", e)
 			}
-		} catch (e) {
-			console.error("Feching More ERROR: ", e)
 		}
 	}
 
@@ -137,6 +136,10 @@ export default class EventPage extends React.Component {
  						/>) 
  						|| (error && 'An error occurified.')
  						|| 'Loading...'}
+				/>
+				<Route 
+					path={`${match.url}/schedule`}
+					render={() => <Schedule {...this.props} tickets={tickets} />}
 				/>
 				</Switch>
 			</div> 

@@ -30,9 +30,9 @@ const GigTimespan = ({gig, showRelative, showDuration, hideDates, ...others}) =>
 			{endDate && (<span className='gig-end'>{moment(gig.end).format(endFormat)}
 				</span>)}
 			{' '}
-			{relative}
-			{' '}
 			{duration}
+			{' '}
+			{relative}
 		</span>
 }
 				// : endDate + ' at\u00A0'}{moment(gig.end).format(timeFormat)}</span>)}
