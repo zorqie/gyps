@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, Divider, Header, Item } from 'semantic-ui-react'
+import { Button, Divider, Header, List } from 'semantic-ui-react'
 
 import GigTimespan from '../GigTimespan.jsx'
 import ActsList from '../ActsList.jsx'
@@ -11,14 +11,14 @@ function ActionButton({gig, tickets, status='Attending', onJoin, onLeave, floate
 	return isAttending(gig, tickets, status) 
 			? <Button 
 				icon="minus" 
-				label="Leave" 
+				content="Leave" 
 				negative 
 				floated="right"
 				onClick={onLeave.bind(null, gig, status)} 
 				/> 
 			: <Button 
 				icon="plus" 
-				label="Join" 
+				content="Join" 
 				positive 
 				floated="right"
 				onClick={onJoin.bind(null, gig, status)}
@@ -36,14 +36,14 @@ function ShiftItem({shift, onSelect, actionButton}) {
 
 	// console.log("SHIFT", shift)
 	// console.log("Action button: ", actionButton)
-	return <Item 
+	return <List.Item 
 			onClick={onSelect}
 			
 		>
-			<Header as="h2">{primary}</Header>
+			<Header as="h3">{primary}</Header>
 			{secondary}
 			<span floated="right">{actionButton}</span>
-		</Item>
+		</List.Item>
 }
 
 function Attendance({gig}) {
@@ -69,6 +69,7 @@ export default class ActivityCard extends React.Component {
 				&& <ActsList acts={gig.acts} onSelect={onActSelect} title={actsTitle} />
 				|| ''
 			}
+			<List selection relaxed divided>
 			{shifts.map(shift => 
 				<ShiftItem 
 					key={shift._id} 
@@ -77,6 +78,7 @@ export default class ActivityCard extends React.Component {
 					actionButton={<ActionButton gig={shift} status={status} tickets={ticketsByGig} {...others}/>}
 				/>
 			)}
+			</List>
 			{shifts.length === 0
 				&& <div style={{marginTop:'1.5em'}}>
 						{gig.type && ticketsByGig && <ActionButton gig={gig} status={status} tickets={ticketsByGig} {...others}/>}

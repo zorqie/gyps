@@ -21,7 +21,7 @@ table.gig-schedule tbody tr td {
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 	transition: all 0.5s ease;
 }
-table.gig-schedule tbody tr td.j-shift:hover {
+table.gig-schedule tbody tr td.j-start:hover {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 td.j-start {
@@ -33,9 +33,15 @@ td.j-end {
 td.j-shift {
 	border-right: 2px solid grey !important;
 	border-left: 2px solid grey;
-	width: 12em;
+	/*width: 12em;*/
+
 }
 table.gig-schedule tbody tr td a {
+	display: block;
+	width: 11em;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
 	font-size: smaller;
 	text-decoration: none;
 	color: rgba(0,0,0,0.5);
