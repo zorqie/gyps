@@ -49,6 +49,7 @@ export default function ssr(app) {
 			res.write('<meta charset="utf-8">\n\t\t\t');
 			res.write("<title>Balkanic'18</title>\n\t\t\t")
 			res.write('<link rel="stylesheet" href="/bundle/style.css">\n\t\t');
+			res.write('<link rel="stylesheet" href="/schedule.css">\n\t\t');
 			res.write('<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=cyrillic" rel="stylesheet">');
 			res.write('<style>html body *, button, input {font-family:"Roboto";border-radius:0 !important}</style>\n\t\t')			
 			res.write('</head>\n\t\t');
