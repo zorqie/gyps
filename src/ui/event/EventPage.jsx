@@ -95,6 +95,7 @@ export default class EventPage extends React.Component {
 		const { error, event, gigs, tickets } = this.state
 		const { user, feathers, match } = this.props
 		// console.log("GIGGLES: ", user)
+		console.log("EventPage.event", event)
 		return (
 			<div>
 				<Switch>
@@ -139,7 +140,7 @@ export default class EventPage extends React.Component {
 				/>
 				<Route 
 					path={`${match.url}/schedule`}
-					render={() => <Schedule {...this.props} tickets={tickets} />}
+					render={() => <Schedule {...this.props} event={event} tickets={tickets} />}
 				/>
 				</Switch>
 			</div> 

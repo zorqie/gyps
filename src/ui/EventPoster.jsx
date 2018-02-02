@@ -6,15 +6,6 @@ import { Card, Image } from 'semantic-ui-react'
 
 import GigTimespan from './GigTimespan.jsx'
 
-const styles = {
-	card: {
-		margin: '2em'
-	},
-	titleRight: {
-		float: 'right'
-	}
-}
-
 export default class EventPoster extends React.Component {
 	render() {
 		const { event } = this.props
@@ -22,14 +13,14 @@ export default class EventPoster extends React.Component {
 			<div>
 				<Card fluid>
 					<Card.Content>
-						<Card.Header as="h2" style={{fontWeight: 300}}>
+						<Card.Header style={{fontWeight: 300}}>
 							{event.name} 
 						</Card.Header>
 						<Card.Meta style={{fontSize: 'smaller'}}>
 							<GigTimespan gig={event} showRelative={true}/>
 						</Card.Meta>
 					</Card.Content>
-					<Image src={`/assets/${event._id}_poster.jpg`} />
+					<Image src={`/images/${event._id}_poster.jpg`} />
 					<Card.Content>
 						<Card.Description>
 							<p>{event.description}</p>

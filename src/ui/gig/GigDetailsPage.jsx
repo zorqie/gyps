@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import errorHandler from '../errorHandler'
-import { viewAct, gigJoin, gigLeave } from '../utils.jsx'
+import { viewItem, gigJoin, gigLeave } from '../utils.jsx'
 
 import GigCard from './GigCard.jsx'
 
@@ -55,7 +55,7 @@ export default class GigDetailsPage extends React.Component {
 
 	render() {
 		const { gig, shifts, loaded } =  this.state
-		const { onJoin, onLeave, ticketsByGig, feathers, match } = this.props
+		const { onJoin, onLeave, ticketsByGig, feathers, history, match } = this.props
 
 		const handleJoin = onJoin || gigJoin(feathers)
 		const handleLeave = onLeave || gigLeave(feathers)
@@ -66,7 +66,7 @@ export default class GigDetailsPage extends React.Component {
 			handleJoin, 
 			handleLeave, 
 			ticketsByGig, 
-			viewActDetails: viewAct(feathers, '../act/'),
+			viewActDetails: viewItem(history, '../act/'),
 		}
 		console.log("Hooked gig", gig)
 		return loaded 

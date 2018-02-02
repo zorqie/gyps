@@ -48,7 +48,7 @@ app.authenticate()
 	console.log("USER Hydrating: ", user)
 	app.set('user', user) // how many places we do this?
 	hydrate(
-		<BrowserRouter>
+		<BrowserRouter onUpdate={() => window.scrollTo(0, 0)} >
 			<App feathers={app} user={user}/>
 		</BrowserRouter>, document.getElementById('app'))
 })

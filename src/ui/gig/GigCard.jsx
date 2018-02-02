@@ -13,7 +13,8 @@ export default function GigCard({gig, shifts, ticketsByGig, handleJoin, handleLe
 				<Card.Header>
 					{/*<Avatar>{(gig.type && gig.type.charAt(0)) || ' '}</Avatar>
 					<GigTitle gig={gig} />*/}
-					<span>{gig.type}</span> 
+					<span style={{textTransform: 'uppercase', fontSize: 'smaller', fontWeight: 300, letterSpacing: '3px', padding: '1em'}}>{gig.venue && gig.venue.name || ''}</span>
+					<span style={{float: 'right'}}>{gig.type}</span> 
 				</Card.Header>
 				<Card.Content>
 					<GigTimespan gig={gig} showDuration={true} />

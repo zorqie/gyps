@@ -60,13 +60,12 @@ export default class ActivityCard extends React.Component {
 		const { gig, shifts, ticketsByGig, onActSelect, viewGig, ...others /*onJoin, onLeave*/ } = this.props 
 		console.log("CARD props", this.props)
 		const status = gig.type==='Volunteer' ? 'Volunteering' : 'Attending'
-		const actsTitle = gig.type==='Workshop' ? 'Led by:' : gig.type==='Performance' ? 'Featuring: ' : ''
 		return gig._id && <div>
 			<h2>{gig.name}</h2>
 			<p>{gig.description}</p>
 			{!shifts.length && <Attendance gig={gig} /> || ''}
 			{!shifts.length && gig.type!=='Volunteer'
-				&& <ActsList acts={gig.acts} onSelect={onActSelect} title={actsTitle} />
+				&& <ActsList acts={gig.acts} onSelect={onActSelect} title="With:" />
 				|| ''
 			}
 			<List selection relaxed divided>

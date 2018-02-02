@@ -134,13 +134,20 @@ export default class Schedule extends React.Component {
 
 	render() {
 		// TODO rename jobs => sites (to refelct reality...)
-		const tickets = this.props.tickets 
+		const { tickets, event } = this.props
+		if (!tickets || !tickets.length && (!event || !event.gigs)) {
+			return null
+		}
 		console.log("MY SCHED.tickets", tickets)
+		console.log("MY SCHED.event", event)
+		const attending = (tickets && tickets.length) 
+			? tickets
+			: event.gigs.map(gig => ({gig}))
 
 		const { stints } = this.state
 		const all = stints && stints.length 
-			? tickets.concat(stints) 
-			: tickets
+			? attending.concat(stints) 
+			: attending
 
 		return <div>
 			{all.length 

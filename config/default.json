@@ -2,11 +2,11 @@
   "host": "localhost",
   "port": 2018,
   "public": "../public/",
-  "mongodb": "mongodb://localhost:27017/kuuker",
-  "paginate": {
+  "mongodb": "MONGO_URI", /*"mongodb://localhost:27017/kuuker",*/
+  "paginate": false, /*{
     "default": 10,
     "max": 50
-  },
+  },*/
   "authentication": {
     "secret": "onGq8IJBYp+lhWKbY4xH+9BGrxIuZArEGf9T2Lf0Wy7MhA22DLkXyLppOQ27qUnvgxkTINvoArwih94eauCAZw==",
     "strategies": [

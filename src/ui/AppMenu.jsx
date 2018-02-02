@@ -31,7 +31,7 @@ const UserDropdown = ({user, match, feathers}) => (
 				<Dropdown.Item as={Link} to="/my-lineup">My Lineup</Dropdown.Item>
 				<Dropdown.Item as={Link} to="/my-schedule">My Schedule</Dropdown.Item>
 				<Dropdown.Divider />
-				<Dropdown.Item onClick={feathers.logout}>Logout?</Dropdown.Item>
+				<Dropdown.Item onClick={() => (feathers.logout(), feathers.emit('logout'))}>Logout?</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown>
 	</div>

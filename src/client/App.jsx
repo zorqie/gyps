@@ -47,15 +47,15 @@ export default class App extends React.Component {
 				<Container text >
 					<Switch>
 						<Route path="/" exact component={Home} />
-						<Route path="/events" exact render={p => <EventsListPage {...this.props} />} />
+						<Route path="/events" exact render={p => <EventsListPage {...this.props} user={user} />} />
 						<Route path="/event/:eventId" render={p => <EventPage {...this.props} {...p} user={user} />} />
 						<Route path="/gig/:gigId" render={p => <GigDetailsPage {...this.props} {...p} user={user} />} />
+						
 						<Route path="/login" render={p => <LoginForm {...this.props} {...p}/>} />
 						<Route path="/signup" render={p => <SignupForm {...this.props} {...p}/>} />
 						<Route path="/logout" render={p => (feathers.logout(), feathers.emit('logout'), p.history.push('/')), null} />
 						<Route component={NotFound} />
 					</Switch>
-					<p>{this.props.user && this.props.user.email}</p>
 				</Container>
 
 				<footer style={{position: 'fixed', bottom: 0, right: '8px', fontSize: 'x-small'}}>

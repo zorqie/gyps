@@ -4,6 +4,7 @@ import { Header, Item } from 'semantic-ui-react'
 
 import GigItem from '../gig/GigItem.jsx'
 import GigTimespan from '../GigTimespan.jsx'
+import ScrollToTopOnMount from '../ScrollTop.jsx'
 
 import { viewGig } from '../utils.jsx'
 // import JoinLeaveButton from './JoinLeaveButton.jsx'
@@ -17,12 +18,13 @@ export default class EventDetails extends React.Component {
 		const title = <span>
 			<b>{event.name}</b>
 			{event.acts.length 
-				&& <span style={{fontWeight: '300'}}> (with {event.acts.map(a => a.name).join(', ')})</span>
+				&& <span style={{fontWeight: '300'}}> (with {event.acts.map(act => act.name).join(', ')})</span>
 				|| ''
 			}
 		</span>;
 
 		return event && <div>
+				<ScrollToTopOnMount />
 			    <Header> 
 			    	{title} 
 			    </Header>
