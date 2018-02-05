@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link, Route, Redirect, Switch } from 'react-router-dom'
 
-import EventDetails from './EventDetails.jsx'
+import EventDetails from '../event/EventDetails.jsx'
 // import GigDetailsPage from './GigDetailsPage.jsx'
 // import LineupPage from './lineup.jsx'
 import Schedule from '../Schedule.jsx'

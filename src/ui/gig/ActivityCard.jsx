@@ -55,7 +55,9 @@ function Attendance({gig}) {
 }
 
 export default class ActivityCard extends React.Component {
-
+	selectItem = (e, data) => {
+		console.log("ITEM: ", e, data)
+	}
 	render() {
 		const { gig, shifts, ticketsByGig, onActSelect, viewGig, ...others /*onJoin, onLeave*/ } = this.props 
 		console.log("CARD props", this.props)

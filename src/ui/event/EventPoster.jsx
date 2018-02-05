@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Card, Image } from 'semantic-ui-react'
 
-import GigTimespan from './GigTimespan.jsx'
+import GigTimespan from '../GigTimespan.jsx'
 
 export default class EventPoster extends React.Component {
 	render() {

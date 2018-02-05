@@ -1,6 +1,6 @@
 import React from 'react'
 
-import EventPoster from './EventPoster.jsx'
+import EventPoster from '../event/EventPoster.jsx'
 
 export default class EventsListPage extends React.Component {
 	state = {

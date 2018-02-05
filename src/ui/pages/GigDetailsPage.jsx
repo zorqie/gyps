@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import errorHandler from '../errorHandler'
 import { viewItem, gigJoin, gigLeave } from '../utils.jsx'
 
-import GigCard from './GigCard.jsx'
+import GigCard from '../gig/GigCard.jsx'
 
 export default class GigDetailsPage extends React.Component {
 	state = {
