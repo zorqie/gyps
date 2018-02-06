@@ -27,7 +27,25 @@ const NotFound = () => (
 	</div>
 )
 
-// const EventListPage = props => <div>List of events</div> 
+const pages = [
+	{
+		path: '/event/:eventId',
+		component: EventPage,
+	},
+	{
+		path: '/act/:actId',
+		component: ActDetailsPage,
+	},
+	{
+		path: '/gig/:gigId',
+		component: GigDetailsPage,
+	},
+	{
+		path: '/events',
+		exact: true,
+		component: EventsListPage,
+	},
+]
 
 export default class App extends React.Component {
 	state = {
@@ -46,7 +64,7 @@ export default class App extends React.Component {
 	showError = error => {
 		this.setState({sidebar: {visible: true, error: true, message: error.message}})
 		setTimeout(() => this.setState({sidebar: {visible: false, error: false}}), 4000)
-		console.log("SHOW error:", message)
+		console.log("SHOW error:", error)
 	}
 	componentWillMount() {
 		const { feathers } = this.props
@@ -65,10 +83,10 @@ export default class App extends React.Component {
 				<Container text >
 					<Switch>
 						<Route path="/" exact component={Home} />
-						<Route path="/events" exact render={p => <EventsListPage {...this.props} user={user} />} />
-						<Route path="/event/:eventId" render={p => <EventPage {...this.props} {...p} user={user} />} />
-						<Route path="/gig/:gigId" render={p => <GigDetailsPage {...this.props} {...p} user={user} />} />
-						<Route path="/act/:actId" render={p => <ActDetailsPage {...this.props} {...p} user={user} />} />
+
+						{pages.map(({path, component: Component, ...others}) => 
+							<Route key={path} {...others} path={path} render={props => <Component {...this.props} {...props} user={user} />} />
+						)}
 						
 						<Route path="/my-profile" exact render={p => <ProfilePage {...this.props} {...p}/>} />
 						<Route path="/login" render={p => <LoginForm {...this.props} {...p}/>} />
@@ -93,3 +111,9 @@ export default class App extends React.Component {
 		)
 	}
 }
+/*
+						<Route path="/events" exact render={p => <EventsListPage {...this.props} user={user} />} />
+						<Route path="/event/:eventId" render={p => <EventPage {...this.props} {...p} user={user} />} />
+						<Route path="/gig/:gigId" render={p => <GigDetailsPage {...this.props} {...p} user={user} />} />
+						<Route path="/act/:actId" render={p => <ActDetailsPage {...this.props} {...p} user={user} />} />
+*/

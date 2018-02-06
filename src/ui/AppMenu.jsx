@@ -4,17 +4,16 @@ import { Route, Link } from 'react-router-dom'
 import { Button, Container, Divider, Dropdown, Header, Icon, Image, List, Menu } from 'semantic-ui-react'
 
 const EventDropdown = ({match}) => (
-	<Dropdown item simple text='Dropdown'> 
+	<Dropdown item simple text='View'> 
 		<Dropdown.Menu>
-			<Dropdown.Item>List Item</Dropdown.Item>
+			<Dropdown.Item as={Link} to={`${match.url}/schedule`}>Schedule</Dropdown.Item>
 			<Dropdown.Divider />
-			<Dropdown.Header>Header Item</Dropdown.Header>
 			<Dropdown.Item>
 				<i className='dropdown icon' />
 				<span className='text'>Submenu</span>
 				<Dropdown.Menu>
-					<Dropdown.Item>List Item</Dropdown.Item>
-					<Dropdown.Item>List Item</Dropdown.Item>
+					<Dropdown.Item>List Item 1</Dropdown.Item>
+					<Dropdown.Item>List Item 2</Dropdown.Item>
 				</Dropdown.Menu>
 			</Dropdown.Item>
 			<Dropdown.Item>List Item</Dropdown.Item>
@@ -52,8 +51,8 @@ export default function AppMenu(props) {
 				</Menu.Item>
 				<Menu.Item as={Link} to='/events'>Events</Menu.Item>
 				<Route 
-					path='/event'
-					render={p => <EventDropdown {...p}/>}
+					path='/event/:eventId'
+					render={p => <EventDropdown {...props} {...p} />}
 				/>
 				<Menu.Menu position='right'>
 					{!user && <Menu.Item >
