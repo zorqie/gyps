@@ -65,13 +65,13 @@ export default class ActivityCard extends React.Component {
 		return gig._id && <div>
 			<h2>{gig.name}</h2>
 			<p>{gig.description}</p>
-			{!shifts.length && <Attendance gig={gig} /> || ''}
-			{!shifts.length && gig.type!=='Volunteer'
+			{shifts && !shifts.length && <Attendance gig={gig} /> || ''}
+			{shifts && !shifts.length && gig.type!=='Volunteer'
 				&& <ActsList acts={gig.acts} onSelect={onActSelect} title="With:" />
 				|| ''
 			}
 			<List selection relaxed divided>
-			{shifts.map(shift => 
+			{shifts && shifts.map(shift => 
 				<ShiftItem 
 					key={shift._id} 
 					shift={shift}
@@ -80,7 +80,7 @@ export default class ActivityCard extends React.Component {
 				/>
 			)}
 			</List>
-			{shifts.length === 0
+			{shifts && shifts.length === 0
 				&& <div style={{marginTop:'1.5em'}}>
 						{gig.type && ticketsByGig && <ActionButton gig={gig} status={status} tickets={ticketsByGig} {...others}/>}
 					</div>

@@ -29,7 +29,7 @@ const NotFound = () => (
 
 const pages = [
 	{
-		path: '/event/:eventId',
+		path: '/event/:eventId/:type?',
 		component: EventPage,
 	},
 	{
@@ -50,6 +50,7 @@ const pages = [
 export default class App extends React.Component {
 	state = {
 		user: this.props.user,
+		event: this.props.event,
 		sidebar: {
 			visible: false,
 			message: '',
@@ -69,18 +70,19 @@ export default class App extends React.Component {
 	componentWillMount() {
 		const { feathers } = this.props
 		feathers.on('user.login', user => this.setState({user}))
+		feathers.on('user.event', event => this.setState({event}))
 		feathers.on('logout', () => this.setState({ user: null }))
 		feathers.on('error', this.showError)
 		feathers.on('message', this.showMessage)
 	}
 	render() {
 		const { feathers, history } = this.props
-		const { user, sidebar } = this.state
+		const { user, sidebar, event } = this.state
 		return (
 			<div style={{ marginTop: '7em' }}>
-				<Route path="/:section?/:id?/:mode?" render={p => <AppMenu {...this.props} {...p} user={user} />} />
+				<Route path="/:section?/:id?/:mode?" render={p => <AppMenu {...this.props} {...p} user={user} event={event}/>} />
 
-				<Container text >
+				<Container  >
 					<Switch>
 						<Route path="/" exact component={Home} />
 
@@ -102,7 +104,7 @@ export default class App extends React.Component {
 					direction='bottom' 
 					animation='overlay' 
 					width='thin' 
-					inverted
+					inverted='true'
 				 />
 				<footer style={{position: 'fixed', bottom: 0, right: '8px', fontSize: 'x-small'}}>
 					© 2018 Intergalactic Balkan Festivals Unlimited

@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, Route, Redirect, Switch } from 'react-router-dom'
 
 import EventDetails from '../event/EventDetails.jsx'
+import EventCards from '../event/EventCards.jsx'
 // import GigDetailsPage from './GigDetailsPage.jsx'
 // import LineupPage from './lineup.jsx'
 import Schedule from '../Schedule.jsx'
@@ -32,6 +33,8 @@ export default class EventPage extends React.Component {
 			const event = await feathers.service('events').get(eventId)
 			this.setState({ event })
 			if(user) {
+				feathers.set('event', event)
+				feathers.emit('user.event', event)
 				this.fetchMore(user)
 			}
 		} catch (error) {
@@ -125,7 +128,15 @@ export default class EventPage extends React.Component {
 						/>}
 				/>*/}
 				<Route 
-					path={match.url}
+					path={`/event/:eventId/cards`}
+					render={() => <EventCards {...this.props} event={event} tickets={tickets} />}
+				/>
+				<Route 
+					path={`/event/:eventId/schedule`}
+					render={() => <Schedule {...this.props} event={event} tickets={tickets} />}
+				/>
+				<Route 
+					path={`/event/:eventId/:type?`}
 					exact
 					render={props => 
 						(event && <EventDetails 
@@ -137,10 +148,6 @@ export default class EventPage extends React.Component {
  						/>) 
  						|| (error && 'An error occurified.')
  						|| 'Loading...'}
-				/>
-				<Route 
-					path={`${match.url}/schedule`}
-					render={() => <Schedule {...this.props} event={event} tickets={tickets} />}
 				/>
 				</Switch>
 			</div> 

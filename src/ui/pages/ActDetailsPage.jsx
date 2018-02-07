@@ -14,28 +14,17 @@ export default class ActDetailsPage extends React.Component {
 	componentWillMount() {
 		this.fetchData()
 		const { feathers } = this.props
-		feathers.service('gigs').on('created', this.createdListener)
+		feathers.service('gigs').on('created', this.fetchData)
 		feathers.service('gigs').on('patched', this.fetchData)
-		feathers.service('gigs').on('removed', this.removedListener)
+		feathers.service('gigs').on('removed', this.fetchData)
 	}
 	
 	componentWillUnmount() {
 		const { feathers } = this.props
-		feathers.service('gigs').removeListener('created', this.createdListener)
+		feathers.service('gigs').removeListener('created', this.fetchData)
 		feathers.service('gigs').removeListener('patched', this.fetchData)
-		feathers.service('gigs').removeListener('removed', this.removedListener)
+		feathers.service('gigs').removeListener('removed', this.fetchData)
 	}
-	createdListener = gig => {
-		console.log("Added: ", gig)
-		// TODO this will add any gigs, even if not by this act
-		this.setState({gigs: this.state.gigs.concat(gig)})
-	}
-
-	removedListener = gig => {
-		console.log("Removed: ", gig)
-		this.setState({gigs: this.state.gigs.filter(v => v._id !== gig._id)})
-	}
-
 
 	async fetchData() {
 		const { actId } = this.props.match.params
@@ -44,19 +33,19 @@ export default class ActDetailsPage extends React.Component {
 		try {
 			const act = await feathers.service('acts').get(actId)
 			document.title = act.name
-			const result = await feathers.service('gigs').find({
-				query: {
-					act_id: act._id, 
-					parent: {$exists: true}, // should be "this" event but we don't have such
-					$sort: { start: 1 },
-				}
-			})
-			const data = result.data || result
-			// console.log("DATA", data)
-			const ids = data.map(g => g._id)
-			const gigs = data.filter(g => !ids.includes(g.parent))
+			// const result = await feathers.service('gigs').find({
+			// 	query: {
+			// 		act_id: act._id, 
+			// 		parent: {$exists: true}, // should be "this" event but we don't have such
+			// 		$sort: { start: 1 },
+			// 	}
+			// })
+			// const data = result.data || result
+			// // console.log("DATA", data)
+			// const ids = data.map(g => g._id)
+			// const gigs = data.filter(g => !ids.includes(g.parent))
 			// console.log("GIGS", gigs)
-			this.setState({...this.state, act, gigs})
+			this.setState({...this.state, act})
 		} catch (error) {
 			feathers.emit("error", error)
 		} 
@@ -65,9 +54,10 @@ export default class ActDetailsPage extends React.Component {
 	selectGig = feathers => gig => feathers.history.push('../gig/'+gig._id)
 
 	render() {
-		// console.log("Act props: ", this.props)
-		const { act, gigs } = this.state
+		const { act } = this.state
+		const { gigs } = act
 		const { feathers } = this.props
+		console.log("Act props: ", this.props)
 
 		return (
 			<Card fluid raised>
@@ -80,7 +70,7 @@ export default class ActDetailsPage extends React.Component {
 						<Card.Meta>{act.description} </Card.Meta>
 					</Card.Header>
 					<Item.Group relaxed divided>
-					{gigs.map(gig =>
+					{gigs && gigs.map(gig =>
 
 						<GigItem 
 							key={gig._id} 
