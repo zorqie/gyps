@@ -8,6 +8,7 @@ import ActivityCard from './ActivityCard.jsx'
 import ActsList from '../ActsList.jsx'
 import GigTimespan from '../GigTimespan.jsx'
 import GigTitle from './GigTitle.jsx'
+import ScrollToTopOnMount from '../ScrollTop.jsx'
 
 const styles = {
 	site: {
@@ -28,6 +29,8 @@ export default function GigCard({gig, shifts, ticketsByGig, handleJoin, handleLe
 				<Card.Header>
 					{/*<Avatar>{(gig.type && gig.type.charAt(0)) || ' '}</Avatar>
 					<GigTitle gig={gig} />*/}
+					<ScrollToTopOnMount />
+
 					<Link to={`/site/${gig.venue._id}`}>
 						<span style={styles.site}>{gig.venue && gig.venue.name || ''}</span>
 					</Link>

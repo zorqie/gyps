@@ -6,6 +6,7 @@ import { gigJoin, gigLeave, viewItem } from './utils.jsx'
 
 const handleGigJoin = ({feathers, history}) => (gig, status, e) => {
 	e.preventDefault()
+	e.stopPropagation()
 	const { shifts } = gig
 	if (shifts && shifts.length) {
 		// has children
@@ -14,10 +15,12 @@ const handleGigJoin = ({feathers, history}) => (gig, status, e) => {
 		// console.log("Go join the gig")
 		gigJoin(feathers)(gig, status)
 	}
+	return false
 }
 
 const handleGigLeave = ({feathers, history}) => (gig, status, e) => {
 	e.preventDefault()
+	e.stopPropagation()
 	const { shifts } = gig
 	if (shifts && shifts.length) {
 		// has children
@@ -26,6 +29,7 @@ const handleGigLeave = ({feathers, history}) => (gig, status, e) => {
 		// console.log("Go join the gig")
 		gigLeave(feathers)(gig, status)
 	}
+	return false
 }
 
 export default class JoinLeaveButton extends React.Component {
@@ -43,7 +47,7 @@ export default class JoinLeaveButton extends React.Component {
 				floated={floated}
 				secondary
 				onClick={this.handleLeave.bind(null, gig, status)}
-			><Icon fitted name="minus"/></Button>
+			><Icon name="minus"/></Button>
 			: <Button
 				icon 
 				floated={floated}

@@ -77,14 +77,14 @@ export default class EventPage extends React.Component {
 		// ticket doesn't have the hooks applied so we need to get it from service
 		this.props.feathers.service('tickets').get(ticket._id)
 		.then(t => {
-			console.log("Ticketed: ", t)
+			if(typeof window !== 'undefined') console.log("Ticketed: ", t)
 			this.setState({tickets: this.state.tickets.concat(t)})
 		})
 		.catch(console.error)
 	}
 
 	ticketRemoved = ticket => {
-		console.log("Ticket removed: ", ticket)
+		if(typeof window !== 'undefined') console.log("Ticket removed: ", ticket)
 		this.setState({tickets: this.state.tickets.filter(t=>t._id!==ticket._id)})
 	}
 
@@ -118,15 +118,7 @@ export default class EventPage extends React.Component {
 					path={`${match.url}/act/:actId`}
 					render={props => <ActDetailsPage {...this.props} {...props}  tickets={tickets} />}
 				/>
-				<Route 
-					path={`${match.url}/gig/:gigId`}
-					render={props => 
-						<GigDetailsPage 
-							{...this.props}
-							{...props} 
-							ticketsByGig={ticketsByGig(tickets)}
-						/>}
-				/>*/}
+				*/}
 				
 				<Route 
 					path={`/event/:eventId/gig/:gigId`}

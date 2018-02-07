@@ -8,7 +8,9 @@ const EventDropdown = ({match}) => (
 		<Dropdown.Menu>
 			<Dropdown.Item as={Link} to={`${match.url}/schedule`}>Schedule</Dropdown.Item>
 			<Dropdown.Item as={Link} to={`${match.url}/cards`}>Cards</Dropdown.Item>
+			<Dropdown.Divider />
 			<Dropdown.Item as={Link} to={`${match.url}/Workshop`}>Workshops</Dropdown.Item>
+			<Dropdown.Item as={Link} to={`${match.url}/Performance`}>Performances</Dropdown.Item>
 			<Dropdown.Divider />
 			<Dropdown.Item>
 				<i className='dropdown icon' />
@@ -24,9 +26,9 @@ const EventDropdown = ({match}) => (
 )
 
 const UserDropdown = ({user, match, feathers}) => (
-	<div>
+	<Menu.Item>
 		<Icon name="user" />
-		<Dropdown simple inline >
+		<Dropdown simple closeOnChange inline >
 			<Dropdown.Menu>
 				<Dropdown.Item as={Link} to="/my-profile">{user.email}</Dropdown.Item>
 				<Dropdown.Item as={Link} to="/my-lineup">My Lineup</Dropdown.Item>
@@ -35,19 +37,19 @@ const UserDropdown = ({user, match, feathers}) => (
 				<Dropdown.Item onClick={() => (feathers.logout(), feathers.emit('logout'))}>Logout</Dropdown.Item>
 			</Dropdown.Menu>
 		</Dropdown>
-	</div>
+	</Menu.Item>
 )
 
 export default function AppMenu(props) {
 	const { feathers, user, event } = props
-	console.log("AppMenu.props", props.match)
+	// console.log("AppMenu.props", props.match)
 	return <Menu fixed='top' inverted>
 			<Container>
 				<Menu.Item header as={Link} to={event ? `/event/${event._id}` : '/'}>
 					<Image
 						size='mini'
 						src={event ? `/images/${event._id}_icon.jpg` : '/assets/Kuker-333.jpg'}
-						style={{ marginRight: '1.5em' }}
+						style={{ marginRight: '1.5em'}}
 					/>
 					{event && event.name || 'Roots'}
 				</Menu.Item>
@@ -60,10 +62,7 @@ export default function AppMenu(props) {
 					{!user && <Menu.Item >
 							<Button as={Link} to='/login'>Login</Button>
 						</Menu.Item>}
-					{user && <Menu.Item >
-							<UserDropdown {...props}/>
-							{/*<Button onClick={feathers.logout}>Logout</Button>*/}
-						</Menu.Item>}
+					{user && <UserDropdown {...props}/>}
 				</Menu.Menu>
 			</Container>
 		</Menu>

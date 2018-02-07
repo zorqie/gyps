@@ -82,7 +82,7 @@ export default class App extends React.Component {
 			<div style={{ marginTop: '7em' }}>
 				<Route path="/:section?/:id?/:mode?" render={p => <AppMenu {...this.props} {...p} user={user} event={event}/>} />
 
-				<Container  >
+				<Container>
 					<Switch>
 						<Route path="/" exact component={Home} />
 

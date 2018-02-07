@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Header, Card } from 'semantic-ui-react'
 
+import EventHeader from './EventHeader.jsx'
 import GigCardSmall from '../gig/GigCardSmall.jsx'
 import GigTimespan from '../GigTimespan.jsx'
 import ScrollToTopOnMount from '../ScrollTop.jsx'
@@ -19,22 +20,12 @@ export default class EventCards extends React.Component {
 
 		const { gigs } = event
 		// console.log("GIGGGINGING: ", gigs);
-		const title = <span>
-			<Header>{event.name}</Header>
-			{event.acts.length 
-				&& <span style={{fontWeight: '300'}}> (with {event.acts.map(act => act.name).join(', ')})</span>
-				|| ''
-			}
-		</span>
 
 		return event && <div>
 				<ScrollToTopOnMount />
-			    <Header> 
-			    	{title} 
-			    </Header>
-			    <GigTimespan gig={event} showRelative={true}/>;
+			    <EventHeader event={event} />
 				{gigs.length 
-					&& <Card.Group relaxed doubling stackable>
+					&& <Card.Group centered doubling stackable className="centered">
 						{gigs.map(gig => 
 							<GigCardSmall 
 								key={gig._id} 
