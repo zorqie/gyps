@@ -8,6 +8,7 @@ export default class EventsListPage extends React.Component {
 	}
 	async componentWillMount() {
 		const { feathers } = this.props
+		feathers.emit('user.event', null)
 		try {
 			const result = await feathers.service('events')
 				.find({
