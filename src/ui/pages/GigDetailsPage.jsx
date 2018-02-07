@@ -40,21 +40,24 @@ export default class GigDetailsPage extends React.Component {
 		const gigId = (params && params.gigId) || this.props.match.params.gigId
 		if(gigId) {
 			feathers.service('gigs').get(gigId)
-			.then(gig => {
-				feathers.service('gigs').find({
-					query: {
-						parent: gig._id
-					}
-				})
-				.then(result => this.setState({gig, shifts: result.data || result, loaded: true}))
-			})
+			.then(gig => this.setState({gig, loaded: true}))
+			// .then(gig => {
+			// 	feathers.service('gigs').find({
+			// 		query: {
+			// 			parent: gig._id,
+			// 			$sort: { start: 1 },
+			// 		}
+			// 	})
+			// 	.then(result => this.setState({gig, shifts: result.data || result, loaded: true}))
+			// })
 			.catch(errorHandler(this.props))
 		}
 	} 
 
 
 	render() {
-		const { gig, shifts, loaded } =  this.state
+		const { gig, loaded } =  this.state
+		const { shifts } = gig
 		const { onJoin, onLeave, ticketsByGig, feathers, history, match } = this.props
 
 		const handleJoin = onJoin || gigJoin(feathers)

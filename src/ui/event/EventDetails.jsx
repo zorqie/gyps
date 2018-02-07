@@ -17,21 +17,20 @@ export default class EventDetails extends React.Component {
 		console.log("TYPED: ", match)
 		const gigs = type ? event.gigs.filter(g => g.type===type) : event.gigs
 		// console.log("GIGGGINGING: ", gigs);
-		const title = <span>
-			<b>{event.name}</b>
-			{event.acts.length 
-				&& <span style={{fontWeight: '300'}}> (with {event.acts.map(act => act.name).join(', ')})</span>
-				|| ''
-			}
-			<span style={{fontWeight: '300', float:'right'}}>at <b>{event.venue.name}</b></span>
-		</span>;
 
 		return event && <div>
 				<ScrollToTopOnMount />
-			    <Header> 
-			    	{title} 
+			    <Header  style={{fontWeight: '300'}}> 
+					<b style={{fontSize: 'x-large'}}>{event.name}</b>
+					{event.acts.length 
+						&& <span> (with {event.acts.map(act => act.name).join(', ')})</span>
+						|| ''
+					}
+				    <div>
+				    	<GigTimespan gig={event} showRelative={true} style={{fontSize: 'smaller'}} />
+				    </div>
+					<div style={{fontWeight: '300'}}>at <b>{event.venue.name}</b></div>
 			    </Header>
-			    <GigTimespan gig={event} showRelative={true}/>;
 				{gigs.length 
 					&& <Item.Group relaxed divided>
 						{gigs.map(gig => 

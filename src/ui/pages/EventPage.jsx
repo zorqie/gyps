@@ -4,7 +4,7 @@ import { Link, Route, Redirect, Switch } from 'react-router-dom'
 
 import EventDetails from '../event/EventDetails.jsx'
 import EventCards from '../event/EventCards.jsx'
-// import GigDetailsPage from './GigDetailsPage.jsx'
+import GigDetailsPage from './GigDetailsPage.jsx'
 // import LineupPage from './lineup.jsx'
 import Schedule from '../Schedule.jsx'
 // import VenuePage from './VenuePage.jsx'
@@ -127,6 +127,11 @@ export default class EventPage extends React.Component {
 							ticketsByGig={ticketsByGig(tickets)}
 						/>}
 				/>*/}
+				
+				<Route 
+					path={`/event/:eventId/gig/:gigId`}
+					render={props => <GigDetailsPage {...this.props} {...props} event={event} tickets={tickets} />}
+				/>
 				<Route 
 					path={`/event/:eventId/cards`}
 					render={() => <EventCards {...this.props} event={event} tickets={tickets} />}
