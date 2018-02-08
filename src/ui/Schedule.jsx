@@ -17,7 +17,7 @@ const tspan = (job, {_id, name, type}) =>
 
 const JobHeader = ({job, span}) => 
 	<th colSpan={span} >
-		<Link to={'/sites/'+job._id}>{job.name}</Link>
+		<Link to={'/venue/'+job._id}>{job.name}</Link>
 	</th>
 
 function SlotCell({slot, job}) {

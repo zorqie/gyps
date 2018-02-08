@@ -35,7 +35,7 @@ export default class Lineup extends React.Component {
 		e.preventDefault()
 		const { history } = this.props
 		e.stopPropagation()
-		history.push('./site/'+venue._id)
+		history.push('./venue/'+venue._id)
 	}
 	render() {
 		const { event, tickets, status, user, history } = this.props

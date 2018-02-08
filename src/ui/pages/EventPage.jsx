@@ -113,7 +113,7 @@ export default class EventPage extends React.Component {
 				*/}
 				
 				<Route 
-					path={`${match.url}/venue/:venueId`}
+					path={`/event/:eventId/venue/:venueId`}
 					render={props => <VenueDetailsPage {...this.props} {...props}  tickets={tickets} />}
 				/>
 				<Route 
