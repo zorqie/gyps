@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { Container, Header, List } from 'semantic-ui-react'
+import { Container, List } from 'semantic-ui-react'
 
 import EventHeader from './EventHeader.jsx'
 import GigItem from '../gig/GigItem.jsx'
-import GigTimespan from '../GigTimespan.jsx'
 import ScrollToTopOnMount from '../ScrollTop.jsx'
 
 import { viewItem } from '../utils.jsx'
@@ -13,11 +12,9 @@ import { viewItem } from '../utils.jsx'
 export default class EventDetails extends React.Component {
 	render() {
 		const { event, tickets, feathers, history, match } = this.props
-		// const status = this.props.match.params.type === 'Volunteer' ? 'Volunteering' : 'Attending' // TODO this is meaningless
 		const { type } = match.params
-		console.log("TYPED: ", match)
-		const gigs = type ? event.gigs.filter(g => g.type===type) : event.gigs
-		// console.log("GIGGGINGING: ", gigs);
+
+		const gigs = type ? event.gigs.filter(g => type.includes(g.type)) : event.gigs
 
 		return event && <Container text>
 				<ScrollToTopOnMount />

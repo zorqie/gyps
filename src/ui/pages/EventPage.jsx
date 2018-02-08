@@ -60,7 +60,7 @@ export default class EventPage extends React.Component {
 					const gigs = await feathers.service('gigs').find({
 						query: {
 							parent: eventId,
-							type: { $in: optional }, // TODO we should filter later
+						//	type: { $in: optional }, // TODO we should filter later
 							$sort: { start: 1 }
 						}
 					})
@@ -75,12 +75,12 @@ export default class EventPage extends React.Component {
 
 	ticketCreated = ticket => {
 		// ticket doesn't have the hooks applied so we need to get it from service
-		this.props.feathers.service('tickets').get(ticket._id)
-		.then(t => {
-			if(typeof window !== 'undefined') console.log("Ticketed: ", t)
-			this.setState({tickets: this.state.tickets.concat(t)})
-		})
-		.catch(console.error)
+		// this.props.feathers.service('tickets').get(ticket._id)
+		// .then(t => {
+			if(typeof window !== 'undefined') console.log("Ticketed: ", ticket)
+			this.setState({tickets: this.state.tickets.concat(ticket)})
+		// })
+		// .catch(console.error)
 	}
 
 	ticketRemoved = ticket => {
@@ -130,6 +130,10 @@ export default class EventPage extends React.Component {
 				/>
 				<Route 
 					path={`/event/:eventId/schedule`}
+					render={() => <Schedule {...this.props} event={event} />}
+				/>
+				<Route 
+					path={`/my-schedule`}
 					render={() => <Schedule {...this.props} event={event} tickets={tickets} />}
 				/>
 				<Route 

@@ -125,7 +125,7 @@ export default class Schedule extends React.Component {
 }*/
 
 	shouldComponentUpdate(nextProps, nextState) {
-		console.log("THIS", this.props.tickets.length)
+		console.log("THIS", this.props.tickets)
 		console.log("NEXT --- ", nextProps.tickets)
 		return true;
 		// return this.props.tickets.length !== nextProps.tickets.length 
@@ -135,7 +135,7 @@ export default class Schedule extends React.Component {
 	render() {
 		// TODO rename jobs => sites (to refelct reality...)
 		const { tickets, event } = this.props
-		if (!tickets || !tickets.length && (!event || !event.gigs)) {
+		if ((!tickets || !tickets.length) && (!event || !event.gigs)) {
 			return null
 		}
 		console.log("MY SCHED.tickets", tickets)

@@ -37,25 +37,27 @@ export default class JoinLeaveButton extends React.Component {
 	handleJoin = handleGigJoin(this.props)
 	viewGig = viewItem(this.props.history, '/gig/')
 	render() {
-		const {gig, attending, status='Attending', floated, ...others} = this.props
+		const {gig, attending, status='Attending', ...others} = this.props
 		// console.log("________________EVENT JOIN LEAVE BUTTON _________", others)
 		return (
 			// isAttending(gig, tickets, status) 
+			gig.mandatory 
+			? <Icon name="calendar check" size="big" /> 
+			:
 			attending
-			? <Button 
-				icon
-				floated={floated}
-				secondary
+			? <Icon 
+				name="calendar minus" 
+				size="big" 
+				color="red"
+				link
 				onClick={this.handleLeave.bind(null, gig, status)}
-			><Icon name="minus"/></Button>
-			: <Button
-				icon 
-				floated={floated}
-				basic
+			/>
+			: <Icon 
+				name='calendar plus' 
+				size="big"
+				link
 				onClick={this.handleJoin.bind(null, gig, status)}
-			>	
-				<Icon name='plus'/>
-			</Button>
+			/>
 		)
 	}
 }

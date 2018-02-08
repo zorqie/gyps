@@ -26,14 +26,6 @@ export default function GigItem({ gig, tickets, status='Attending', onSelect, ..
 				size='small' 
 				src={`/images/${gig._id}_tile.jpg`}
 			/>
-			<List.Content  floated='left'>
-				<List.Header as="h2" >{gig.name}</List.Header>
-				<Item.Extra style={{marginTop:0}}>
-					<GigTimespan gig={gig} />
-					
-				</Item.Extra>
-				<Item.Description>{gig.description}</Item.Description>
-			</List.Content>
 			<List.Content floated='right'>
 				{shifts && shifts.length 
 						&& <Button >Shifted</Button>
@@ -43,6 +35,14 @@ export default function GigItem({ gig, tickets, status='Attending', onSelect, ..
 						floated='right'
 						attending={isAttending(gig, tickets, status)}
 					/>}
+			</List.Content>
+			<List.Content  floated='left'>
+				<List.Header as="h2" >{gig.name}</List.Header>
+				<Item.Extra style={{marginTop:0}}>
+					<GigTimespan gig={gig} />
+					
+				</Item.Extra>
+				<List.Description>{gig.description}</List.Description>
 			</List.Content>
 		</List.Item>
 	)
