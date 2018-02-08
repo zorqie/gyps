@@ -13,7 +13,7 @@ const GigTime = ({gig, showStart=true, showEnd=true, showRelative, showDuration,
 	const mNow = moment();
 	const mStart = moment(gig.start);
 	const dateFormat = mNow.year() == mStart.year() ? 'ddd M/D' : 'ddd M/D/YY';
-	const timeFormat = 'h:mm\u00A0a'
+	const timeFormat = 'h:mm a' // \u00A0
 	const startDate = mStart.format(dateFormat);
 	const endDate = gig.end && moment(gig.end).format(dateFormat);
 	
@@ -29,10 +29,10 @@ const GigTime = ({gig, showStart=true, showEnd=true, showRelative, showDuration,
 		? <span className='gig-duration'>{moment.duration(moment(gig.end).diff(mStart)).humanize()}</span> 
 		: ''
 	// {...others} passes the styling on
-	return <span className='gig-time' {...others}>
+	return <div className='gig-time' {...others}>
 			<span className='gig-start'>
 				{!hideDates && <GigDate date={mStart} hideYears={hideYears}/>}
-				{mStart.format(timeFormat)}
+				<div className='gig-start-time'>{mStart.format(timeFormat)}</div>
 			</span>
 			{showEnd && (<span>
 				{endDate && <span className='gig-dash'>{' \u2013 '}</span>}
@@ -43,7 +43,7 @@ const GigTime = ({gig, showStart=true, showEnd=true, showRelative, showDuration,
 			{duration}
 			{' '}
 			{relative}
-		</span>
+		</div>
 }
 				// : endDate + ' at\u00A0'}{moment(gig.end).format(timeFormat)}</span>)}
 

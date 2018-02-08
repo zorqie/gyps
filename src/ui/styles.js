@@ -40,10 +40,12 @@ const styles = {
 		date: {
 			fontFamily: 'Roboto, sans-serif',
 			fontWeight: 300,
-			fontSize: '24px'
+			fontSize: '24px',
+			marginTop: '1em'
 		},
 		item: {
 			verticalAlign: 'top',
+			margin: '1em 0'
 		},
 		time: {
 			verticalAlign: 'top',

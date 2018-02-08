@@ -7,6 +7,7 @@ const EventDropdown = ({match}) => (
 	<Dropdown item simple text='View'> 
 		<Dropdown.Menu>
 			<Dropdown.Item as={Link} to={`${match.url}/schedule`}>Schedule</Dropdown.Item>
+			<Dropdown.Item as={Link} to={`${match.url}/lineup`}>Lineup</Dropdown.Item>
 			<Dropdown.Item as={Link} to={`${match.url}/cards`}>Cards</Dropdown.Item>
 			<Dropdown.Divider />
 			<Dropdown.Item as={Link} to={`${match.url}/Workshop`}>Workshops</Dropdown.Item>

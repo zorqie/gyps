@@ -5,7 +5,7 @@ import { Link, Route, Redirect, Switch } from 'react-router-dom'
 import EventDetails from '../event/EventDetails.jsx'
 import EventCards from '../event/EventCards.jsx'
 import GigDetailsPage from './GigDetailsPage.jsx'
-// import LineupPage from './lineup.jsx'
+import LineupPage from './LineupPage.jsx'
 import Schedule from '../Schedule.jsx'
 // import VenuePage from './VenuePage.jsx'
 // import ActDetailsPage from './ActDetailsPage.jsx'
@@ -57,16 +57,16 @@ export default class EventPage extends React.Component {
 		// console.log("Fetching more...", user)
 		if (user) {
 			try {
-					const gigs = await feathers.service('gigs').find({
-						query: {
-							parent: eventId,
-						//	type: { $in: optional }, // TODO we should filter later
-							$sort: { start: 1 }
-						}
-					})
-					this.setState({ event: {...this.state.event, gigs: gigs.data || gigs } })
-					const tickets = await feathers.service('tickets').find()
-					this.setState({ tickets: tickets.data || tickets })
+				const gigs = await feathers.service('gigs').find({
+					query: {
+						parent: eventId,
+					//	type: { $in: optional }, // TODO we should filter later
+						$sort: { start: 1 }
+					}
+				})
+				this.setState({ event: {...this.state.event, gigs: gigs.data || gigs } })
+				const tickets = await feathers.service('tickets').find()
+				this.setState({ tickets: tickets.data || tickets })
 			} catch (e) {
 				console.error("Feching More ERROR: ", e)
 			}
@@ -74,13 +74,8 @@ export default class EventPage extends React.Component {
 	}
 
 	ticketCreated = ticket => {
-		// ticket doesn't have the hooks applied so we need to get it from service
-		// this.props.feathers.service('tickets').get(ticket._id)
-		// .then(t => {
-			if(typeof window !== 'undefined') console.log("Ticketed: ", ticket)
-			this.setState({tickets: this.state.tickets.concat(ticket)})
-		// })
-		// .catch(console.error)
+		if(typeof window !== 'undefined') console.log("Ticketed: ", ticket)
+		this.setState({tickets: this.state.tickets.concat(ticket)})
 	}
 
 	ticketRemoved = ticket => {
@@ -89,6 +84,7 @@ export default class EventPage extends React.Component {
 	}
 
 	ticketPatched = ticket => {
+		// TODO consider removing, we never patch tickets
 		console.log("Ticket updated: ", ticket) // this is likely before hooks ?
 		const tickets = this.state.tickets.filter(t=>t._id!==ticket._id).concat(ticket)	
 		this.setState({tickets})
@@ -97,7 +93,6 @@ export default class EventPage extends React.Component {
 	render() {
 		const { error, event, gigs, tickets } = this.state
 		const { user, feathers, match } = this.props
-		// console.log("GIGGLES: ", user)
 		console.log("EventPage.event", event)
 		return (
 			<div>
@@ -127,6 +122,10 @@ export default class EventPage extends React.Component {
 				<Route 
 					path={`/event/:eventId/cards`}
 					render={() => <EventCards {...this.props} event={event} tickets={tickets} />}
+				/>
+				<Route 
+					path={`/event/:eventId/lineup`}
+					render={() => <LineupPage {...this.props} event={event} />}
 				/>
 				<Route 
 					path={`/event/:eventId/schedule`}

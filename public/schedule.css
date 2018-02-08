@@ -10,12 +10,24 @@ html body * a {
 .gig-duration:after{
 	content: ')'
 }
+.git-time {
+	vertical-align: middle;
+}
+.gig-time {
+	vertical-align: middle;
+	padding: 0;
+	border: 1px solid rgba(0,0,0,0.35);
+	margin: 0.5em;
+}
+.gig-time .gig-start-time {
+	float: right;
+	padding: 0.25em;
+}
 .gig-time .gig-date {
 	width: 3em;
-	margin: 0.5em;
 	padding: 0;
 	text-align: center;
-	border: 1px solid rgba(0,0,0,0.35);
+	border-right: 1px solid rgba(0,0,0,0.35);
 }
 .gig-time .gig-month {
 	font-size: smaller;

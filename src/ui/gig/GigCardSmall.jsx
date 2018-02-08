@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Avatar, Card, Image, Item } from 'semantic-ui-react'
+import { Avatar, Card, Image, Item, Label } from 'semantic-ui-react'
 
 import ActsList from '../ActsList.jsx'
 import GigTime from '../GigTime.jsx'
@@ -11,10 +11,7 @@ import GigTitle from './GigTitle.jsx'
 const styles = {
 	site: {
 		textTransform: 'uppercase', 
-		fontSize: 'smaller', 
-		fontWeight: 300, 
 		letterSpacing: '3px', 
-		padding: '1em',
 		float: 'right'
 	},
 	type: {
@@ -23,18 +20,32 @@ const styles = {
 }
 
 export default function GigCardSmall({gig, ticketsByGig, handleJoin, handleLeave, viewActDetails}) {
+	const label = gig.type==='Workshop' ? {content: gig.type, color: 'orange', attached:'bottom left'} : null
+
 	return gig 
 			&& <Card link={true} href={`/gig/${gig._id}`} raised>
-				<Image fluid as='div'  verticalAlign='middle'  style={{height:'150px', overflow: 'hidden'}} src={`/images/${gig._id}_tile.jpg`} />
+					<Label attached="top left" basic style={{height: 'auto', padding: '0', border: 'none'}} >
+						<GigTime gig={gig} showDuration={false} showEnd={false} hideYears={true} style={{float:'left'}}/>
+					</Label>
 				<Card.Header>
-					<GigTime gig={gig} showDuration={false} showEnd={false} hideYears={true} style={{float:'left'}}/>
-					<Link to={`/site/${gig.venue._id}`}>
-						<span style={styles.site}>{gig.venue && gig.venue.name || ''}</span>
-					</Link>
+					<Label attached="top right">
+						<Link to={`/site/${gig.venue._id}`}>
+							<span style={styles.site}>{gig.venue && gig.venue.name || ''}</span>
+						</Link>
+					</Label>
+					<b>{'\u00A0'}</b>
 				</Card.Header>
+				<Image 
+					fluid
+					as='div' 
+					verticalAlign='middle'
+					label={label}
+					src={`/images/${gig._id}_tile.jpg`} 
+					style={{height: '160px', overflow: 'hidden'}}
+				/>
 				<Card.Content>
-					<b>{gig.name}</b>
-					<span style={styles.type}>{gig.type}</span> 
+					{/*gig.type==='Workshop' && <Label ribbon color="orange">{gig.type}</Label>*/}
+					<Card.Header>{gig.name}</Card.Header>
 					<Card.Meta>{gig.description}</Card.Meta>
 				</Card.Content>
 			</Card>

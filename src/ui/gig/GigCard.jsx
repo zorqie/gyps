@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Avatar, Card, Image } from 'semantic-ui-react'
+import { Avatar, Card, Image, Label } from 'semantic-ui-react'
 
 import ActivityCard from './ActivityCard.jsx'
 import ActsList from '../ActsList.jsx'
@@ -34,10 +34,10 @@ export default function GigCard({gig, shifts, ticketsByGig, handleJoin, handleLe
 					<Link to={`/site/${gig.venue._id}`}>
 						<span style={styles.site}>{gig.venue && gig.venue.name || ''}</span>
 					</Link>
-					<span style={styles.type}>{gig.type}</span> 
 				</Card.Header>
 				<Image src={`/images/${gig._id}_tile.jpg`} />
 				<Card.Content>
+					<Label ribbon>{gig.type}</Label> 
 					<GigTimespan gig={gig} showDuration={true} />
 					<ActivityCard 
 						gig={gig} 
