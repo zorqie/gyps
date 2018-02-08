@@ -7,6 +7,7 @@ import EventsListPage from '../ui/pages/EventsListPage.jsx'
 import EventPage from '../ui/pages/EventPage.jsx'
 import ActDetailsPage from '../ui/pages/ActDetailsPage.jsx'
 import GigDetailsPage from '../ui/pages/GigDetailsPage.jsx'
+import VenueDetailsPage from '../ui/pages/VenueDetailsPage.jsx'
 import LoginForm from '../ui/LoginForm.jsx'
 import SignupForm from '../ui/SignupForm.jsx'
 import ProfilePage from '../ui/pages/ProfilePage.jsx'
@@ -35,6 +36,10 @@ const pages = [
 	{
 		path: '/act/:actId',
 		component: ActDetailsPage,
+	},
+	{
+		path: '/venue/:venueId',
+		component: VenueDetailsPage,
 	},
 	{
 		path: '/gig/:gigId',

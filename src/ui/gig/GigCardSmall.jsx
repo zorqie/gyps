@@ -29,7 +29,7 @@ export default function GigCardSmall({gig, ticketsByGig, handleJoin, handleLeave
 					</Label>
 				<Card.Header>
 					<Label attached="top right">
-						<Link to={`/site/${gig.venue._id}`}>
+						<Link to={`/venue/${gig.venue._id}`}>
 							<span style={styles.site}>{gig.venue && gig.venue.name || ''}</span>
 						</Link>
 					</Label>

@@ -15,7 +15,7 @@ export default function GigTitle({gig}) {
 		{venue 
 			&& <span>
 				at the 
-				<Link to={`../site/${venue._id}`} className='gig-venue' >
+				<Link to={`../venue/${venue._id}`} className='gig-venue' >
 					{venue.name}
 				</Link>
 			</span>}

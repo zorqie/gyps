@@ -7,7 +7,7 @@ import JoinLeaveButton from '../JoinLeaveButton.jsx'
 
 export default class ActDetailsPage extends React.Component {
 	state = {
-		act: {},
+		venue: {},
 		gigs:[], 
 	}
 
@@ -27,15 +27,14 @@ export default class ActDetailsPage extends React.Component {
 	}
 
 	async fetchData() {
-		const { actId } = this.props.match.params
+		const { venueId } = this.props.match.params
 		const { feathers } = this.props
 		// console.log("Looking for parent: " + parentId)
 		try {
-			const act = await feathers.service('acts').get(actId)
-			document.title = act.name
+			const venue = await feathers.service('venues').get(venueId)
 			// const result = await feathers.service('gigs').find({
 			// 	query: {
-			// 		act_id: act._id, 
+			// 		venue_id: venue._id, 
 			// 		parent: {$exists: true}, // should be "this" event but we don't have such
 			// 		$sort: { start: 1 },
 			// 	}
@@ -45,29 +44,30 @@ export default class ActDetailsPage extends React.Component {
 			// const ids = data.map(g => g._id)
 			// const gigs = data.filter(g => !ids.includes(g.parent))
 			// console.log("GIGS", gigs)
-			this.setState({...this.state, act})
+			this.setState({...this.state, venue})
+			document.title = venue.name
 		} catch (error) {
 			feathers.emit("error", error)
 		} 
 	}
 
-	selectGig = history => gig => history.push('../gig/'+gig._id)
+	selectGig = gig => this.props.history.push('../gig/'+gig._id)
 
 	render() {
-		const { act } = this.state
-		const { gigs } = act
+		const { venue } = this.state
+		const { gigs } = venue
 		const { history } = this.props
-		console.log("Act props: ", this.props)
+		console.log("venue props: ", this.props)
 
 		return (
 			<Card fluid raised>
-			    {act.poster_uri && 
-					<Image src={act.poster_uri} />
+			    {venue.poster_uri && 
+					<Image src={venue.poster_uri} />
 				}
 				<Card.Content>
 				    <Card.Header>
-						<Header>{act.name}</Header>
-						<Card.Meta>{act.description} </Card.Meta>
+						<Header>{venue.name}</Header>
+						<Card.Meta>{venue.description} </Card.Meta>
 					</Card.Header>
 					<List relaxed divided selection>
 					{gigs && gigs.map(gig =>
@@ -76,7 +76,7 @@ export default class ActDetailsPage extends React.Component {
 							key={gig._id} 
 							{...this.props}
 							gig={gig} 
-							onSelect={this.selectGig(history).bind(this, gig)}
+							onSelect={this.selectGig.bind(this, gig)}
 						/>
 					)}
 					</List>

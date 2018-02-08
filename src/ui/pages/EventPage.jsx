@@ -5,6 +5,7 @@ import { Link, Route, Redirect, Switch } from 'react-router-dom'
 import EventDetails from '../event/EventDetails.jsx'
 import EventCards from '../event/EventCards.jsx'
 import GigDetailsPage from './GigDetailsPage.jsx'
+import VenueDetailsPage from './VenueDetailsPage.jsx'
 import LineupPage from './LineupPage.jsx'
 import Schedule from '../Schedule.jsx'
 // import VenuePage from './VenuePage.jsx'
@@ -106,15 +107,15 @@ export default class EventPage extends React.Component {
 					render={() => <Schedule {...this.props} tickets={tickets} />}
 				/>
 				<Route 
-					path={`${match.url}/site/:venueId`}
-					render={props => <VenuePage {...this.props} {...props}  tickets={tickets} />}
-				/>
-				<Route 
 					path={`${match.url}/act/:actId`}
 					render={props => <ActDetailsPage {...this.props} {...props}  tickets={tickets} />}
 				/>
 				*/}
 				
+				<Route 
+					path={`${match.url}/venue/:venueId`}
+					render={props => <VenueDetailsPage {...this.props} {...props}  tickets={tickets} />}
+				/>
 				<Route 
 					path={`/event/:eventId/gig/:gigId`}
 					render={props => <GigDetailsPage {...this.props} {...props} event={event} tickets={tickets} />}

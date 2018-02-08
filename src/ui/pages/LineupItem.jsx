@@ -23,7 +23,7 @@ export default function LineupItem({gig, onSelect = ()=>{}, onActSelect, onVenue
 				<div style={lineup.acts}>{acts ? 'With ' + acts : ''}</div>
 			</div>
 			<div style={lineup.venue} >
-				<Link to={`./site/${gig.venue._id}`} onClick={onVenueSelect.bind(null, gig.venue)}>{gig.venue && gig.venue.name}</Link>
+				<Link to={`./venue/${gig.venue._id}`} onClick={onVenueSelect.bind(null, gig.venue)}>{gig.venue && gig.venue.name}</Link>
 			</div>
 	</List.Item>
 }

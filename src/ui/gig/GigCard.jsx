@@ -31,7 +31,7 @@ export default function GigCard({gig, shifts, ticketsByGig, handleJoin, handleLe
 					<GigTitle gig={gig} />*/}
 					<ScrollToTopOnMount />
 
-					<Link to={`/site/${gig.venue._id}`}>
+					<Link to={`/venue/${gig.venue._id}`}>
 						<span style={styles.site}>{gig.venue && gig.venue.name || ''}</span>
 					</Link>
 				</Card.Header>
