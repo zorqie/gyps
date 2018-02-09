@@ -1,4 +1,4 @@
-export const viewItem = (history, base='/item') => item => history.push(base + item._id)
+export const viewItem = (history, base='/item') => (item, e) => (e && e.preventDefault() && e.stopPropagation(), history.push(base + item._id))
 export const viewGig = (history, base='/gig/') => gig => history.push(base + gig._id)
 export const viewAct = (history, base='/act/') => act => history.push(base + act._id)
 export const viewSite = (history, base='/venue/') => site => history.push(base + site._id)

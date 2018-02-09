@@ -19,6 +19,7 @@ export default class EventsListPage extends React.Component {
 				})
 			this.setState({ events: result.data || result})
 		} catch(error) {
+			feathers.emit('error', error)
 			console.error("ERRORRIFIED.", error)
 		} 
 	}

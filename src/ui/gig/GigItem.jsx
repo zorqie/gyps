@@ -18,6 +18,8 @@ const isAttending = (gig, tickets, status) => {
 
 export default function GigItem({ gig, tickets, status='Attending', onSelect, ...others }) {
 	const { shifts } = gig
+	const meta = (gig.acts.length && 'With ' + gig.acts.map(a=>a.name).join(', ')) 
+		|| '\u00A0'
 	return (
 		<List.Item onClick={onSelect.bind(null, gig)}>
 			<Image 
@@ -37,12 +39,12 @@ export default function GigItem({ gig, tickets, status='Attending', onSelect, ..
 					/>}
 			</List.Content>
 			<List.Content  floated='left'>
-				<List.Header as="h2" >{gig.name}</List.Header>
-				<Item.Extra style={{marginTop:0}}>
+				<Item.Extra>
 					<GigTimespan gig={gig} />
-					
 				</Item.Extra>
+				<List.Header as="h2" >{gig.name}</List.Header>
 				<List.Description>{gig.description}</List.Description>
+				<Item.Extra>{meta}</Item.Extra>
 			</List.Content>
 		</List.Item>
 	)

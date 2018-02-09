@@ -68,6 +68,17 @@ export default class App extends React.Component {
 		console.log("SHOW MESSAGE:", message)
 	}
 	showError = error => {
+		const { history } = this.props
+		if(error.code === 401) {
+			console.error("ACCESS DENIED. Moving to login");
+			history.push('/login');
+		} else if(error.code === 404) {
+			console.error("Looking in the wrong place for the wrong thing?", err);
+			history.push('/nonesuch');
+		} else {
+			console.error("Errified: ", error);
+			console.error("Errorized: " + JSON.stringify(error));
+		}
 		this.setState({sidebar: {visible: true, error: true, message: error.message}})
 		setTimeout(() => this.setState({sidebar: {visible: false, error: false}}), 4000)
 		console.log("SHOW error:", error)

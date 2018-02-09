@@ -6,7 +6,7 @@ import auth from '@feathersjs/authentication-client'
 import socketio from '@feathersjs/socketio-client'
 import io from 'socket.io-client'
 
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import '../../semantic/dist/semantic.min.css'
 import App from './App.jsx'
@@ -49,13 +49,13 @@ app.authenticate()
 	app.set('user', user) // how many places we do this?
 	hydrate(
 		<BrowserRouter onUpdate={() => window.scrollTo(0, 0)} >
-			<App feathers={app} user={user}/>
+			<Route render={props => <App {...props} feathers={app} user={user}/>} />
 		</BrowserRouter>, document.getElementById('app'))
 })
 .catch(error => {
 	hydrate(
 		<BrowserRouter>
-			<App feathers={app} />
+			<Route render={props => <App {...props} feathers={app} />} />
 		</BrowserRouter>, document.getElementById('app'))
 
 })

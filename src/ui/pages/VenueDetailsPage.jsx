@@ -5,6 +5,14 @@ import {Card, Header, Icon, Image, Item, List, } from 'semantic-ui-react'
 import GigItem from '../gig/GigItem.jsx'
 import JoinLeaveButton from '../JoinLeaveButton.jsx'
 
+const style = {
+	venue: {
+		fontWeight: 300,
+		textTransform: 'uppercase', 
+		letterSpacing: '3px', 
+	}
+}
+
 export default class ActDetailsPage extends React.Component {
 	state = {
 		venue: {},
@@ -64,11 +72,11 @@ export default class ActDetailsPage extends React.Component {
 			    {venue.poster_uri && 
 					<Image src={venue.poster_uri} />
 				}
-				<Card.Content>
-				    <Card.Header>
-						<Header>{venue.name}</Header>
+				    <Card.Header style={{padding: '1em'}}>
+						<h2 style={style.venue} >{venue.name}</h2>
 						<Card.Meta>{venue.description} </Card.Meta>
 					</Card.Header>
+				<Card.Content>
 					<List relaxed divided selection>
 					{gigs && gigs.map(gig =>
 
