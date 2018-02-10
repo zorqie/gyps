@@ -4,6 +4,7 @@ import {Card, Header, Icon, Image, Item, List, } from 'semantic-ui-react'
 
 import GigItem from '../gig/GigItem.jsx'
 import JoinLeaveButton from '../JoinLeaveButton.jsx'
+import ScrollToTopOnMount from '../ScrollTop.jsx'
 
 const style = {
 	venue: {
@@ -65,17 +66,17 @@ export default class ActDetailsPage extends React.Component {
 		const { venue } = this.state
 		const { gigs } = venue
 		const { history } = this.props
-		console.log("venue props: ", this.props)
 
 		return (
 			<Card fluid raised>
 			    {venue.poster_uri && 
 					<Image src={venue.poster_uri} />
 				}
-				    <Card.Header style={{padding: '1em'}}>
-						<h2 style={style.venue} >{venue.name}</h2>
-						<Card.Meta>{venue.description} </Card.Meta>
-					</Card.Header>
+			    <Card.Header style={{padding: '1em'}}>
+					<ScrollToTopOnMount />
+					<h2 style={style.venue} >{venue.name}</h2>
+					<Card.Meta>{venue.description} </Card.Meta>
+				</Card.Header>
 				<Card.Content>
 					<List relaxed divided selection>
 					{gigs && gigs.map(gig =>

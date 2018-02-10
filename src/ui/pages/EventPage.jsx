@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Link, Route, Redirect, Switch } from 'react-router-dom'
+import { Loader } from 'semantic-ui-react'
 
 import EventDetails from '../event/EventDetails.jsx'
 import EventCards from '../event/EventCards.jsx'
@@ -21,7 +22,6 @@ export default class EventPage extends React.Component {
 		tickets: [],
 		gigs: [],
 		loading: true,
-		error: null,
 	}
 
 	async componentWillMount() {
@@ -41,7 +41,6 @@ export default class EventPage extends React.Component {
 		} catch (error) {
 			console.error('Event ERROR. ', error)
 			feathers.emit('error', error)
-			this.setState({error})
 		}
 	}
 
@@ -92,7 +91,7 @@ export default class EventPage extends React.Component {
 	}
 
 	render() {
-		const { error, event, gigs, tickets } = this.state
+		const { event, gigs, tickets } = this.state
 		const { user, feathers, match } = this.props
 		console.log("EventPage.event", event)
 		return (
@@ -147,8 +146,7 @@ export default class EventPage extends React.Component {
  							gigs={event.gigs} 
  							tickets={tickets} 
  						/>) 
- 						|| (error && 'An error occurified.')
- 						|| 'Loading...'}
+ 						|| <Loader active>Loading...</Loader>}
 				/>
 				</Switch>
 			</div> 

@@ -12,10 +12,8 @@ const handleGigJoin = ({feathers, history}) => (gig, status, e) => {
 		// has children
 		viewItem(history, '/gig/')(gig)
 	} else {
-		// console.log("Go join the gig")
 		gigJoin(feathers)(gig, status)
 	}
-	return false
 }
 
 const handleGigLeave = ({feathers, history}) => (gig, status, e) => {
@@ -26,10 +24,8 @@ const handleGigLeave = ({feathers, history}) => (gig, status, e) => {
 		// has children
 		viewItem(history, '/gig/')(gig)
 	} else {
-		// console.log("Go join the gig")
 		gigLeave(feathers)(gig, status)
 	}
-	return false
 }
 
 export default class JoinLeaveButton extends React.Component {
@@ -42,7 +38,7 @@ export default class JoinLeaveButton extends React.Component {
 		return (
 			// isAttending(gig, tickets, status) 
 			gig.mandatory 
-			? <Icon name="calendar check" size="big" /> 
+			? <Icon name="calendar check" size="big" title="No skipping that one"/> 
 			:
 			attending
 			? <Icon 
@@ -56,6 +52,7 @@ export default class JoinLeaveButton extends React.Component {
 				name='calendar plus' 
 				size="big"
 				link
+				title='Join'
 				onClick={this.handleJoin.bind(null, gig, status)}
 			/>
 		)

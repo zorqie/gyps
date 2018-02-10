@@ -13,7 +13,6 @@ const styles = {
 	site: {
 		textTransform: 'uppercase', 
 		letterSpacing: '3px', 
-		float: 'right'
 	},
 	type: {
 		float: 'right'
@@ -31,10 +30,15 @@ export default function GigCardSmall({gig, ticketsByGig, handleJoin, handleLeave
 						<GigTime gig={gig} showDuration={false} showEnd={false} hideYears={true} style={{float:'left'}}/>
 					</Label>
 				<Card.Header>
-					{gig.venue && <Label attached="top right" style={{padding:0}}>
+					{gig.venue && <Label attached="top right" style={{padding:0, margin:0}}>
 						{/*<Link to={`/venue/${gig.venue._id}`}>*/}
-						<Button compact size='mini' onClick={viewItem(history, '/venue/').bind(null, gig.venue)} >
-							<span style={styles.site}>{gig.venue.name || ''}</span>
+						<Button 
+							compact 
+							size='mini' 
+							onClick={viewItem(history, '/venue/').bind(null, gig.venue)} 
+							style={styles.site}
+						>
+							{gig.venue.name || ''}
 						</Button>
 						{/*</Link>*/}
 					</Label>}

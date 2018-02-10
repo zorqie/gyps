@@ -18,7 +18,7 @@ const isAttending = (gig, tickets, status) => {
 
 export default function GigItem({ gig, tickets, status='Attending', onSelect, ...others }) {
 	const { shifts } = gig
-	const meta = (gig.acts.length && 'With ' + gig.acts.map(a=>a.name).join(', ')) 
+	const meta = (gig.acts && gig.acts.length && 'With ' + gig.acts.map(a=>a.name).join(', ')) 
 		|| '\u00A0'
 	return (
 		<List.Item onClick={onSelect.bind(null, gig)}>
