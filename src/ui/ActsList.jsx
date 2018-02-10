@@ -3,9 +3,10 @@ import React from 'react';
 import { Button, List} from 'semantic-ui-react';
 
 
-export default function ActsList ({ acts, compact, title, onSelect, onEdit, onDelete }) {
-	return <List selection divided relaxed>
-		{acts.length && title || ''}
+export default function ActsList ({ acts, compact, horizontal, title, onSelect, onEdit, onDelete }) {
+	return <div>
+		{acts.length && <span style={{fontWeight:300,paddingRight:'0.5em'}}>{title}</span> || ''}
+		<List horizontal={horizontal} selection relaxed>
 		{acts.map(act => 
 			<List.Item 
 				key={act._id} 
@@ -19,5 +20,6 @@ export default function ActsList ({ acts, compact, title, onSelect, onEdit, onDe
 				</List.Content>
 			</List.Item>
 		)}
-	</List>
+		</List>
+	</div>
 }
