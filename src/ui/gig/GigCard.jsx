@@ -25,7 +25,7 @@ const styles = {
 
 export default function GigCard({gig, shifts, ticketsByGig, handleJoin, handleLeave, viewActDetails, history}) {
 	const label = gig.type==='Workshop' 
-		? {content: gig.type, color: 'orange', attached:'bottom left'} 
+		? {content: gig.type, color: 'orange', attached:'bottom left', size:'big'} 
 		: null	
 
 	return gig && gig._id 
@@ -59,7 +59,7 @@ export default function GigCard({gig, shifts, ticketsByGig, handleJoin, handleLe
 						onLeave={handleLeave} 
 						onActSelect={viewActDetails} 
 					/>*/}
-					<GigCardHeader gig={gig} />
+					<GigCardHeader gig={gig} onActSelect={viewItem(history, '/act/')} />
 				</Card.Content>
 				<Card.Content extra>
 					{gig.shifts && <ShiftList shifts={gig.shifts} viewGig={viewItem(history, '/gig/')} />}
