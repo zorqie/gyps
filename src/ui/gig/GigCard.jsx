@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 
 import { Avatar, Button, Card, Image, Label } from 'semantic-ui-react'
 
-import ActivityCard from './ActivityCard.jsx'
 import ActsList from '../ActsList.jsx'
 import GigCardHeader from './GigCardHeader.jsx'
 import GigJoinButton from './GigJoinButton.jsx'
@@ -31,11 +30,9 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 				<Card.Header>
 					<ScrollToTopOnMount />
 					{gig.venue && <Label attached="top right" style={{padding:0}}>
-						{/*<Link to={`/venue/${gig.venue._id}`}>*/}
 						<Button onClick={viewItem(history, '/venue/').bind(null, gig.venue)} >
 							<span style={styles.site}>{gig.venue.name || ''}</span>
 						</Button>
-						{/*</Link>*/}
 					</Label>}
 					<Label basic style={{fontSize:'large', border:0}}>
 						<GigTimespan gig={gig} showDuration={true} />
@@ -47,13 +44,6 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 					src={`/images/${gig._id}_tile.jpg`} 
 				/>
 				<Card.Content>
-					{/*<ActivityCard 
-						gig={gig} 
-						ticketsByGig={ticketsByGig} 
-						onJoin={handleJoin} 
-						onLeave={handleLeave} 
-						onActSelect={viewActDetails} 
-					/>*/}
 					<GigCardHeader gig={gig} onActSelect={viewItem(history, '/act/')} />
 				</Card.Content>
 				<Card.Content extra>
