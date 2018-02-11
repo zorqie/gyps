@@ -4,7 +4,7 @@ import { Button, Icon } from 'semantic-ui-react'
 
 import { gigJoin, gigLeave, viewItem } from './utils.jsx'
 
-const handleGigJoin = ({feathers, history}) => (gig, status, e) => {
+const handleGigJoin = ({feathers, history, status='Attending'}) => (gig, e) => {
 	e.preventDefault()
 	e.stopPropagation()
 	const { shifts } = gig
@@ -12,11 +12,11 @@ const handleGigJoin = ({feathers, history}) => (gig, status, e) => {
 		// has children
 		viewItem(history, '/gig/')(gig)
 	} else {
-		gigJoin(feathers)(gig, status)
+		gigJoin(feathers, status)(gig)
 	}
 }
 
-const handleGigLeave = ({feathers, history}) => (gig, status, e) => {
+const handleGigLeave = ({feathers, history, status='Attending'}) => (gig, e) => {
 	e.preventDefault()
 	e.stopPropagation()
 	const { shifts } = gig
@@ -24,7 +24,7 @@ const handleGigLeave = ({feathers, history}) => (gig, status, e) => {
 		// has children
 		viewItem(history, '/gig/')(gig)
 	} else {
-		gigLeave(feathers)(gig, status)
+		gigLeave(feathers, status)(gig)
 	}
 }
 
@@ -33,7 +33,7 @@ export default class JoinLeaveButton extends React.Component {
 	handleJoin = handleGigJoin(this.props)
 	viewGig = viewItem(this.props.history, '/gig/')
 	render() {
-		const {gig, attending, status='Attending', ...others} = this.props
+		const {gig, attending, ...others} = this.props
 		// console.log("________________EVENT JOIN LEAVE BUTTON _________", others)
 		return (
 			// isAttending(gig, tickets, status) 
@@ -46,14 +46,14 @@ export default class JoinLeaveButton extends React.Component {
 				size="big" 
 				color="red"
 				link
-				onClick={this.handleLeave.bind(null, gig, status)}
+				onClick={this.handleLeave.bind(null, gig)}
 			/>
 			: <Icon 
 				name='calendar plus' 
 				size="big"
 				link
 				title='Join'
-				onClick={this.handleJoin.bind(null, gig, status)}
+				onClick={this.handleJoin.bind(null, gig)}
 			/>
 		)
 	}

@@ -2,10 +2,18 @@ import React from 'react'
 
 import { List } from 'semantic-ui-react'
 
-import GigJoinButton from './GigJoinButton.jsx'
+import GigJoinIcon from './GigJoinIcon.jsx'
 import GigTimespan from '../GigTimespan.jsx'
 
-function ShiftItem({shift, actionButton, ...others}) {
+const isAttending = (gig, tickets, status) => {
+	return tickets && tickets.find(t => 
+		t.status === status
+		&& (t.gig_id === gig._id || t.gig.parent===gig._id)
+	)
+}
+
+
+function ShiftItem({shift, onClick, ...others}) {
 	const primary = shift.type==='Volunteer' 
 		? <GigTimespan gig={shift} /> 
 		: <div>{shift.name} - {shift.description}</div> 
@@ -16,20 +24,24 @@ function ShiftItem({shift, actionButton, ...others}) {
 
 	// console.log("SHIFT", shift)
 	// console.log("Action button: ", actionButton)
-	return <List.Item {...others}>
+	return <List.Item onClick={onClick}>
 			<List.Header as="h3">{primary}</List.Header>
 			{secondary}
-			<List.Content floated="right">{actionButton}</List.Content>
+			<List.Content floated="right">
+				<GigJoinIcon gig={shift} {...others} />
+			</List.Content>
 		</List.Item>
 }
 
-export default function ShiftList({shifts, status='Attending', viewGig, ticketsByGig, ...others}) {
+export default function ShiftList({shifts, status='Attending', viewGig, tickets, ...others}) {
 	return (
 		<List selection relaxed divided>
 			{shifts.map(shift => 
 				<ShiftItem 
 					key={shift._id} 
+					{...others}
 					shift={shift}
+					attending={isAttending(shift, tickets, status)}
 					onClick={viewGig && viewGig.bind(null, shift)}
 				/>
 			)}

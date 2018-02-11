@@ -12,8 +12,12 @@ export function isAttending(gig, tickets, status='Attending') {
 export const ticketsByGig = 
 	tickets => tickets.reduce((o, t) => Object.assign(o, {[t.gig_id]:t.status}), {})
 
-export const gigJoin = app => (gig, status='Attending') => {
+export const gigJoin = (app, status='Attending') => (gig, e) => {
 	// const start = performance.now()
+	if (e) {
+		e.preventDefault()
+		e.stopPropagation()
+	}
 	const ticket = {gig_id: gig._id, status}
 	app.service('tickets').create(ticket)
 	// .then(t => console.log(t, "Created in ", performance.now() - start))
@@ -24,8 +28,12 @@ export const gigJoin = app => (gig, status='Attending') => {
 	})
 }
 
-export const gigLeave = app => (gig, status='Attending') => {
+export const gigLeave = (app, status='Attending') => (gig, e) => {
 	// TODO ensure status is string
+	if (e) {
+		e.preventDefault()
+		e.stopPropagation()
+	}
 	app.service('tickets')
 	.remove(null, {
 		query: {

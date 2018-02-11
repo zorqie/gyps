@@ -94,7 +94,7 @@ export default class App extends React.Component {
 	render() {
 		const { feathers, history } = this.props
 		const { user, sidebar, event } = this.state
-		console.log("APP.event", event)
+		// console.log("APP.event", event)
 		return (
 			<div style={{ marginTop: '7em' }}>
 				<Route path="/:section?/:id?/:mode?" render={p => <AppMenu {...this.props} {...p} user={user} event={event}/>} />

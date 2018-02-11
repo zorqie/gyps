@@ -93,7 +93,7 @@ export default class EventPage extends React.Component {
 	render() {
 		const { event, gigs, tickets } = this.state
 		const { user, feathers, match } = this.props
-		console.log("EventPage.event", event)
+		// console.log("EventPage.event", event)
 		return (
 			<div>
 				<Switch>

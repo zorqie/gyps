@@ -45,7 +45,7 @@ app.authenticate()
 .then(auth => app.passport.verifyJWT(auth.accessToken))
 .then(jwt => app.service('users').get(jwt.userId))
 .then(user => {
-	console.log("USER Hydrating: ", user)
+	// console.log("USER Hydrating: ", user)
 	app.set('user', user) // how many places we do this?
 	hydrate(
 		<BrowserRouter onUpdate={() => window.scrollTo(0, 0)} >

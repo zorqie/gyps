@@ -8,6 +8,15 @@ import { viewItem, gigJoin, gigLeave } from '../utils.jsx'
 
 import GigCard from '../gig/GigCard.jsx'
 
+const isAttending = (gig, tickets, status) => {
+	// console.log("GTS: ", gig, tickets, status)
+	return tickets && tickets.find(t => 
+		t.status === status
+		&& (t.gig_id === gig._id || t.gig.parent===gig._id)
+	)
+}
+
+
 export default class GigDetailsPage extends React.Component {
 	state = {
 		gig: {},
@@ -28,9 +37,9 @@ export default class GigDetailsPage extends React.Component {
 
 	componentWillReceiveProps(next) {
 		// console.log("this.state", this.state)
-		console.log("next.params", next.match.params)
+		// console.log("next.params", next.match.params)
 		const { params } = this.props.match
-		console.log("this.params", this.props.match.params)
+		// console.log("this.params", this.props.match.params)
 		if (params.gigId !== next.match.params.gigId) {
 			this.setState({loaded: false})
 			this.fetchData(next.match.params)
@@ -50,18 +59,22 @@ export default class GigDetailsPage extends React.Component {
 
 	render() {
 		const { gig, loaded } =  this.state
-		const { ticketsByGig, feathers, history } = this.props
-
+		const { tickets, feathers, history } = this.props
+		// console.log("GigDetails.tickets", tickets)
+		const status = gig.type==='Volunteer' ? 'Volunteering' : 'Attending'
+		const attending = gig.shifts && gig.shifts.length===0 && isAttending(gig, tickets, status)
+		// console.log("GigDetails.attending? ", attending)
 		const gigProps = {
 			gig, 
-			ticketsByGig, 
+			tickets,
+			attending,
 			history,
 			handleJoin: gigJoin(feathers), 
 			handleLeave: gigLeave(feathers), 
 			viewActDetails: viewItem(history, '../act/'),
 			viewGig: viewItem(history, './gig/'),
 		}
-		console.log("GigDetails.gig", gig)
+		// console.log("GigDetails.gig", gig)
 		return loaded 
 			&& <GigCard {...gigProps} /> 
 			|| <Loader active>Loading...</Loader>
@@ -69,7 +82,7 @@ export default class GigDetailsPage extends React.Component {
 }
 
 GigDetailsPage.propTypes = {
-	ticketsByGig: PropTypes.object, // map gig._id = status
+	tickets: PropTypes.array, // map gig._id = status
 	onJoin: PropTypes.func, 
 	onLeave: PropTypes.func, 
 }
