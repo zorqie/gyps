@@ -28,7 +28,6 @@ const DateHeader = ({moment}) => <div className="cal-sheet">
 	<div className="cal-date">{moment.format('D')}</div>
 	<div className="cal-dow">{moment.format('ddd')}</div>
 </div>
-	
 
 export default class LineupPage extends React.Component {
 	// TODO all these view**** sprinkled throughout should be in one place

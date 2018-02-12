@@ -1,45 +1,17 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
 
-import feathers from '@feathersjs/feathers'
 import auth from '@feathersjs/authentication-client'
-import socketio from '@feathersjs/socketio-client'
-import io from 'socket.io-client'
 
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import '../../semantic/dist/semantic.min.css'
 import App from './App.jsx'
 
- 
-// FIXME this should be in configuration somewhere.
-// Establish a Socket.io connection
-const socket = io('http://localhost:2018');
-// const socket = io('https://gyps.herokuapp.com/') 
+import app from './feathers' 
 
-// Initialize our Feathers client application through Socket.io
-// with hooks and authentication.
-const app = feathers()
-	.configure(socketio(socket))
-	// .configure(hooks())
-	// Use localStorage to store our login token
-	.configure(auth({ storage: window.localStorage }))
-
-const defaultErrorHandler = error => {
-	console.error("Error handlered: ", error)
-	app.emit("error", error)
-}
-
-const authListener = 
-	(userHandler = ()=>{}, errorHandler = defaultErrorHandler) => 
-		auth => app.passport.verifyJWT(auth.accessToken)
-			.then(jwt => app.service('users').get(jwt.userId))
-			.then(userHandler)
-			.catch(errorHandler)  // TODO: 
-
-// app.on('authenticated', authListener(u => app.set('user', u)))
-
-app.on('logout', (u) => (console.log("OUT."), app.set('user', null)))
+// we do this here because window is only defined on client
+app.configure(auth({ storage: window.localStorage }))
 
 app.authenticate()
 .then(auth => app.passport.verifyJWT(auth.accessToken))
@@ -59,6 +31,8 @@ app.authenticate()
 		</BrowserRouter>, document.getElementById('app'))
 
 })
+
+export default app;
 
 // FIXME remove this
 window.gyps = app

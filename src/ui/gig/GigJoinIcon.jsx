@@ -2,7 +2,10 @@ import React from 'react'
 
 import { Icon } from 'semantic-ui-react'
 
-export default function GigJoinButton({gig, attending, size='big', handleJoin = ()=>{}, handleLeave = ()=>{}}) {
+import app from '../../client/feathers'
+import { gigJoin, gigLeave } from '../utils.jsx'
+
+export default function GigJoinButton({gig, attending, status='Attending', size='big', handleJoin = ()=>{}, handleLeave = ()=>{}}) {
 	return (
 		// isAttending(gig, tickets, status) 
 		gig.mandatory 
@@ -15,14 +18,14 @@ export default function GigJoinButton({gig, attending, size='big', handleJoin = 
 				color="red"
 				link
 				title="Leave"
-				onClick={handleLeave.bind(null, gig)}
+				onClick={gigLeave(app, status).bind(null, gig)}
 			/>
 			: <Icon 
 				name='calendar plus' 
 				size={size}
 				link
 				title='Join'
-				onClick={handleJoin.bind(null, gig)}
+				onClick={gigJoin(app, status).bind(null, gig)}
 			/>
 	)
 }
