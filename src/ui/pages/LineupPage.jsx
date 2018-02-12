@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import { Divider, Header, List,  } from 'semantic-ui-react'
 
-import LineupItem from './LineupItem.jsx'
+import LineupTable from '../event/LineupTable.jsx'
 import { viewItem } from '../utils.jsx'
 import styles from '../styles'
 
@@ -31,52 +31,14 @@ const DateHeader = ({moment}) => <div className="cal-sheet">
 	
 
 export default class LineupPage extends React.Component {
-	viewVenue = (venue, e) => {
-		e.preventDefault()
-		e.stopPropagation()
-		const { history } = this.props
-		history.push('./venue/'+venue._id)
-	}
+	// TODO all these view**** sprinkled throughout should be in one place
 	render() {
-		const { event, tickets, status, user, history } = this.props
-		if (!event && !tickets) {
+		const { event, ...others } = this.props
+		if (!event) {
 			return null
 		}
 
-		const filtered = tickets && tickets.filter(t => !t.gig.parent && t.status===(status || 'Attending')) 
-		const tix = filtered || event.gigs.map(gig => ({gig, status: 'Attending'})) || []
-		
-		// console.log("TIXING: ", tix)
-		
-		// console.log("LINEUP filtered", filtered) 
-		// console.log(dates)
-		return <div style={styles.lineup.container}>
-			{ tix.length==0 ?
-				<Header>No events found. <Link to='/events'>Choose some</Link></Header> 
-				: ''
-			}
-			{ tix.length && days(tix).map(d =>
-				<List key={d} relaxed='very' selection>
-					<Header style={styles.lineup.date}>{d.format('MMM D, dddd')}</Header>
-					<Divider/>
-					{tix.filter(t => moment(t.gig.start).isSame(d, 'day'))
-						.sort(ticketStartSort)
-						.map(({gig}) => 
-							/*<Link  to={`gig/${gig._id}`}>*/
-							<LineupItem
-								key={gig._id}
-								gig={gig}
-								hideDates={true}
-								onSelect={viewItem(history, './gig/')}
-								onVenueSelect={this.viewVenue}
-							/>
-							/*</Link>*/
-					)}
-				</List>
-
-				)
-				|| ''
-			}
-		</div>
+		const { gigs } = event
+		return <LineupTable gigs={gigs} {...others} />
 	}
 }

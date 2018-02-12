@@ -8,7 +8,6 @@ import EventCards from '../event/EventCards.jsx'
 import GigDetailsPage from './GigDetailsPage.jsx'
 import VenueDetailsPage from './VenueDetailsPage.jsx'
 import LineupPage from './LineupPage.jsx'
-import LineupTablePage from './LineupTablePage.jsx'
 import Schedule from '../Schedule.jsx'
 // import VenuePage from './VenuePage.jsx'
 // import ActDetailsPage from './ActDetailsPage.jsx'
@@ -124,12 +123,8 @@ export default class EventPage extends React.Component {
 					render={() => <EventCards {...this.props} event={event} tickets={tickets} />}
 				/>
 				<Route 
-					path={`/event/:eventId/lineup_old`}
-					render={() => <LineupPage {...this.props} event={event} />}
-				/>
-				<Route 
 					path={`/event/:eventId/lineup`}
-					render={() => <LineupTablePage {...this.props} event={event} tickets={tickets} />}
+					render={() => <LineupPage {...this.props} event={event} tickets={tickets} />}
 				/>
 				<Route 
 					path={`/event/:eventId/schedule`}
