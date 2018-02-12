@@ -8,13 +8,9 @@ const styles = {
 		fontSize: 'smaller',
 		color: 'grey'
 	},
-	dateInput: {
-		width: '10em',
-		marginRight: '2em'
-	},
-	timeInput: {
-		width: '10em',
-		marginRight: '2em'
+	venue: {
+		textTransform: 'uppercase', 
+		letterSpacing: '3px', 
 	},
 	footer: {
 		position: 'fixed', 
@@ -34,8 +30,9 @@ const styles = {
 	},
 	
 	lineup: {
-		container: {
-			margin: '1em'
+		table: {
+			margin: '1em',
+			border: 'none',
 		},
 		date: {
 			fontFamily: 'Roboto, sans-serif',
@@ -44,31 +41,23 @@ const styles = {
 			marginTop: '1em',
 			background: 'none'
 		},
-		item: {
-			verticalAlign: 'top',
-			margin: '1em 0'
-		},
 		time: {
 			verticalAlign: 'top',
 			display: 'inline-block',
 			fontWeight: 300,
-			width: '30%',
 		},
 		gig: {
 			display: 'inline-block',
-			width: '40%',
 		},
 		name: {
 			fontWeight: 500,
 		},
 		venue: {
 			verticalAlign: 'top',
-			display: 'inline-block',
 			fontSize: 'small',
-			fontWeight: 300,
 			letterSpacing: '2px',
 			textTransform: 'uppercase',
-			width: '30%',
+			whiteSpace: 'nowrap',
 		},
 		acts: {
 			fontSize: 'small',

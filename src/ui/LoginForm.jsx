@@ -47,7 +47,7 @@ class LoginForm extends React.Component {
 			feathers.service('users').patch(user._id, {online: true})
 			.then(u => {
 				feathers.emit('user.login', user)
-				history.push('/')
+				history.goBack();
 				console.log("Login complete")
 			})
 		})

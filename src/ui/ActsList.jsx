@@ -11,9 +11,10 @@ export default function ActsList ({ acts, compact, horizontal, title, onSelect, 
 			<List.Item 
 				key={act._id} 
 				onClick={onSelect ? onSelect.bind(null, act) : ()=>null}
+				style={{padding: '1em'}}
 			>
 				<List.Header>{act.name}</List.Header>
-				<List.Content>
+				<List.Content >
 					{compact ? '' : (act.description || ' ')}
 					{onEdit && <Button label="Edit" onClick={onEdit.bind(null, act)}/>}
 					{onDelete && <Button label="Delete" onClick={onDelete.bind(null, act)}/>}

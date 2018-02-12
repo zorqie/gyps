@@ -15,7 +15,7 @@ export default function GigCardHeader({gig, onActSelect}) {
 			|| ''
 		}
 		{shifts && !shifts.length && gig.type!=='Volunteer'
-			&& <ActsList acts={gig.acts} onSelect={onActSelect} title="With:" compact />
+			&& <ActsList acts={gig.acts} onSelect={onActSelect} title="With:" compact horizontal />
 			|| ''
 		}
 	</Card.Header>

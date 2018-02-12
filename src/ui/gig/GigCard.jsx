@@ -13,15 +13,10 @@ import ScrollToTopOnMount from '../ScrollTop.jsx'
 import ShiftList from './ShiftList.jsx'
 import { viewItem } from '../utils.jsx'
 
-const styles = {
-	site: {
-		textTransform: 'uppercase', 
-		letterSpacing: '3px', 
-	},
-}
+import styles from '../styles'
 
 export default function GigCard({gig, tickets, attending, handleJoin, handleLeave, viewActDetails, history}) {
-	const label = gig.type==='Workshop' 
+	const label = gig.type!=='Performance' 
 		? {content: gig.type, color: 'orange', attached:'bottom left', size:'big'} 
 		: null	
 
@@ -30,7 +25,7 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 					<ScrollToTopOnMount />
 					{gig.venue && <Label attached="top right" style={{padding:0}}>
 						<Button onClick={viewItem(history, '/venue/').bind(null, gig.venue)} >
-							<span style={styles.site}>{gig.venue.name || ''}</span>
+							<span style={styles.venue}>{gig.venue.name || ''}</span>
 						</Button>
 					</Label>}
 					<Label basic style={{fontSize:'large', border:0}}>
