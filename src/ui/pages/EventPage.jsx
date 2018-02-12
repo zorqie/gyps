@@ -44,6 +44,13 @@ export default class EventPage extends React.Component {
 		}
 	}
 
+	componentWillUnmount() {
+		const { feathers } = this.props
+		feathers.service('tickets').removeListener('created', this.ticketCreated)
+		feathers.service('tickets').removeListener('removed', this.ticketRemoved)
+		feathers.service('tickets').removeListener('patched', this.ticketPatched)
+	}
+
 	async componentWillReceiveProps(nextProps) {
 		if (nextProps.user && nextProps.user !== this.props.user) {
 			console.log("EventPage got user:", nextProps)

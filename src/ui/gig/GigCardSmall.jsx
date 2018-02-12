@@ -20,7 +20,7 @@ const styles = {
 }
 
 export default function GigCardSmall({gig, ticketsByGig, handleJoin, handleLeave, viewActDetails, history}) {
-	const label = gig.type==='Workshop' ? {content: gig.type, color: 'orange', attached:'bottom left'} : null
+	const label = gig.type!=='Performance' ? {content: gig.type, color: 'orange', attached:'bottom left'} : null
 	const meta = gig.description 
 		|| (gig.acts.length && 'With ' + gig.acts.map(a=>a.name).join(', ')) 
 		|| '\u00A0'

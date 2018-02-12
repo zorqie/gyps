@@ -10,6 +10,9 @@ import ScrollToTopOnMount from '../ScrollTop.jsx'
 import { viewGig } from '../utils.jsx'
 // import JoinLeaveButton from './JoinLeaveButton.jsx'
 
+const excluded = ['Meal', 'Volunteer']
+const gigFilter = gig => !(gig.mandatory || excluded.includes(gig.type)) 
+
 export default class EventCards extends React.Component {
 	render() {
 		const { event, tickets, feathers, match } = this.props
@@ -26,7 +29,7 @@ export default class EventCards extends React.Component {
 			    <EventHeader event={event} />
 				{gigs.length 
 					&& <Card.Group centered doubling stackable className="centered">
-						{gigs.map(gig => 
+						{gigs.filter(gigFilter).map(gig => 
 							<GigCardSmall 
 								key={gig._id} 
 								{...this.props}
