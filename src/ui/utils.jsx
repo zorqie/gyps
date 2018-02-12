@@ -3,10 +3,20 @@ export const viewGig = (history, base='/gig/') => gig => history.push(base + gig
 export const viewAct = (history, base='/act/') => act => history.push(base + act._id)
 export const viewSite = (history, base='/venue/') => site => history.push(base + site._id)
 
+export const ticketStartSort = (a, b) => (+(a.gig.start > b.gig.start) || +(a.gig.start === b.gig.start) - 1)
+export const gigStartSort = (a, b) => (+(a.start > b.start) || +(a.start === b.start) - 1)
 
 
-export function isAttending(gig, tickets, status='Attending') {
-	return tickets && tickets[gig._id] === status
+// export function isAttending(gig, tickets, status='Attending') {
+// 	return tickets && tickets[gig._id] === status
+// }
+
+export const isAttending = (gig, tickets, status='Attending') => {
+	// console.log("GTS: ", gig, tickets, status)
+	return tickets && gig && tickets.find(t => 
+		t.status === status
+		&& (t.gig_id === gig._id || t.gig.parent===gig._id)
+	)
 }
 
 export const ticketsByGig = 

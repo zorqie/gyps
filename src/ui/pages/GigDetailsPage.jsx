@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Loader } from 'semantic-ui-react'
+import { Container, Loader } from 'semantic-ui-react'
 
 import errorHandler from '../errorHandler'
 import { viewItem, gigJoin, gigLeave } from '../utils.jsx'
@@ -23,8 +23,16 @@ export default class GigDetailsPage extends React.Component {
 		loaded: false,
 	}
 
-	componentDidMount() {
-		const { feathers } = this.props
+	componentWillMount() {
+		const { feathers, event, match } = this.props
+		const gigId = match.params.gigId
+		if (event && gigId) {
+			const gig = event.gigs.find(g => g._id===gigId)
+			console.log("Event and gig: ", gig)
+			if (gig) {
+				this.setState({gig, loaded: true})
+			}
+		}
 		this.fetchData()
 		feathers.service('gigs').on('patched', this.fetchData)
 	}
@@ -76,7 +84,7 @@ export default class GigDetailsPage extends React.Component {
 		}
 		// console.log("GigDetails.gig", gig)
 		return loaded 
-			&& <GigCard {...gigProps} /> 
+			&& <Container text><GigCard {...gigProps} /></Container> 
 			|| <Loader active>Loading...</Loader>
 	}
 }

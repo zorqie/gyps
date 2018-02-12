@@ -25,8 +25,7 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 		? {content: gig.type, color: 'orange', attached:'bottom left', size:'big'} 
 		: null	
 
-	return gig && gig._id 
-			&& <Card fluid style={{padding: '0 2em'}} >
+	return <Card fluid>
 				<Card.Header>
 					<ScrollToTopOnMount />
 					{gig.venue && <Label attached="top right" style={{padding:0}}>
@@ -41,6 +40,8 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 				<Image 
 					fluid
 					label={label}
+					style={{height:'30rem', overflow:'hidden'}}
+					verticalAlign='middle'
 					src={`/images/${gig._id}_tile.jpg`} 
 				/>
 				<Card.Content>
@@ -65,5 +66,4 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 					}
 				</Card.Content>
 			</Card>
-			|| null
 }

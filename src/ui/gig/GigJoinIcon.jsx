@@ -2,16 +2,16 @@ import React from 'react'
 
 import { Icon } from 'semantic-ui-react'
 
-export default function GigJoinButton({gig, attending, handleJoin, handleLeave, showLabels}) {
+export default function GigJoinButton({gig, attending, size='big', handleJoin = ()=>{}, handleLeave = ()=>{}}) {
 	return (
 		// isAttending(gig, tickets, status) 
 		gig.mandatory 
-		? <Icon name="calendar check" size="big" title="No skipping that one"/> 
+		? <Icon name="calendar check" size={size} title="No skipping that one"/> 
 		:
 			attending
 			? <Icon 
 				name="calendar minus" 
-				size="big" 
+				size={size} 
 				color="red"
 				link
 				title="Leave"
@@ -19,7 +19,7 @@ export default function GigJoinButton({gig, attending, handleJoin, handleLeave, 
 			/>
 			: <Icon 
 				name='calendar plus' 
-				size="big"
+				size={size}
 				link
 				title='Join'
 				onClick={handleJoin.bind(null, gig)}

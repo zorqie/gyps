@@ -5,14 +5,17 @@ import { StaticRouter } from 'react-router-dom'
 import App from './client/App.jsx'
 
 export default function ssr(app) {
+	// TODO this doesn't belong here. Anywhere?
 	app.on('logout', () => {
 		console.log("OUTING...")
 		app.set('user', null)
 	})
+/*
 	app.on('login', what => {
 		console.log("INNING...") 
 		
 	})
+*/
 	return (req, res, next) => {
 		if (req.originalUrl && req.originalUrl.indexOf('.') > 0) {
 			return next();
@@ -21,7 +24,7 @@ export default function ssr(app) {
 		const user = app.get('user')
 		if (user) {
 			delete user.password
-			console.log("app.user ==================== ", user.email)
+			// console.log("app.user ==================== ", user.email)
 		}
 
 		const context = {} // not sure how this is useful
@@ -37,10 +40,11 @@ export default function ssr(app) {
 		)
 
 		if (context.url) {
+			console.log("HOW would this ever happen??");
 			res.writeHead(301, {
 				Location: context.url
 			})
-			res.end()
+			res.end();
 		} else {
 			res.setHeader('Content-Type', 'text/html');
 			res.write('<!doctype html>\n\t');

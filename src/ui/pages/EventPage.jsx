@@ -8,6 +8,7 @@ import EventCards from '../event/EventCards.jsx'
 import GigDetailsPage from './GigDetailsPage.jsx'
 import VenueDetailsPage from './VenueDetailsPage.jsx'
 import LineupPage from './LineupPage.jsx'
+import LineupTablePage from './LineupTablePage.jsx'
 import Schedule from '../Schedule.jsx'
 // import VenuePage from './VenuePage.jsx'
 // import ActDetailsPage from './ActDetailsPage.jsx'
@@ -45,18 +46,17 @@ export default class EventPage extends React.Component {
 	}
 
 	async componentWillReceiveProps(nextProps) {
-		console.log("EventPage will receive PROPS", nextProps)
-		if (nextProps.user !== null) {
+		if (nextProps.user && nextProps.user !== this.props.user) {
+			console.log("EventPage got user:", nextProps)
 			this.fetchMore(nextProps.user)
 		}
 	}
 
 	async fetchMore(user) {
-		const { eventId } = this.props.match.params
-		const { feathers } = this.props
-		// console.log("Fetching more...", user)
 		if (user) {
 			try {
+				const { feathers, match } = this.props
+				const { eventId } = match.params
 				const gigs = await feathers.service('gigs').find({
 					query: {
 						parent: eventId,
@@ -116,7 +116,7 @@ export default class EventPage extends React.Component {
 					render={props => <VenueDetailsPage {...this.props} {...props}  tickets={tickets} />}
 				/>
 				<Route 
-					path={`/event/:eventId/gig/:gigId`}
+					path={`/event/:eventId/:type?/gig/:gigId`}
 					render={props => <GigDetailsPage {...this.props} {...props} event={event} tickets={tickets} />}
 				/>
 				<Route 
@@ -124,8 +124,12 @@ export default class EventPage extends React.Component {
 					render={() => <EventCards {...this.props} event={event} tickets={tickets} />}
 				/>
 				<Route 
-					path={`/event/:eventId/lineup`}
+					path={`/event/:eventId/lineup_old`}
 					render={() => <LineupPage {...this.props} event={event} />}
+				/>
+				<Route 
+					path={`/event/:eventId/lineup`}
+					render={() => <LineupTablePage {...this.props} event={event} tickets={tickets} />}
 				/>
 				<Route 
 					path={`/event/:eventId/schedule`}

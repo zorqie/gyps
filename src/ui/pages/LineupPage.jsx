@@ -30,11 +30,11 @@ const DateHeader = ({moment}) => <div className="cal-sheet">
 </div>
 	
 
-export default class Lineup extends React.Component {
+export default class LineupPage extends React.Component {
 	viewVenue = (venue, e) => {
 		e.preventDefault()
-		const { history } = this.props
 		e.stopPropagation()
+		const { history } = this.props
 		history.push('./venue/'+venue._id)
 	}
 	render() {

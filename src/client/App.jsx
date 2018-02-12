@@ -73,7 +73,7 @@ export default class App extends React.Component {
 			console.error("ACCESS DENIED. Moving to login");
 			history.push('/login');
 		} else if(error.code === 404) {
-			console.error("Looking in the wrong place for the wrong thing?", err);
+			console.error("Looking in the wrong place for the wrong thing?", error);
 			history.push('/nonesuch');
 		} else {
 			console.error("Errified: ", error);
@@ -96,7 +96,7 @@ export default class App extends React.Component {
 		const { user, sidebar, event } = this.state
 		// console.log("APP.event", event)
 		return (
-			<div style={{ marginTop: '7em' }}>
+			<div style={{ marginTop: '6em' }}>
 				<Route path="/:section?/:id?/:mode?" render={p => <AppMenu {...this.props} {...p} user={user} event={event}/>} />
 
 				<Container>
@@ -130,9 +130,3 @@ export default class App extends React.Component {
 		)
 	}
 }
-/*
-						<Route path="/events" exact render={p => <EventsListPage {...this.props} user={user} />} />
-						<Route path="/event/:eventId" render={p => <EventPage {...this.props} {...p} user={user} />} />
-						<Route path="/gig/:gigId" render={p => <GigDetailsPage {...this.props} {...p} user={user} />} />
-						<Route path="/act/:actId" render={p => <ActDetailsPage {...this.props} {...p} user={user} />} />
-*/

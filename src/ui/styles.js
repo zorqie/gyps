@@ -41,7 +41,8 @@ const styles = {
 			fontFamily: 'Roboto, sans-serif',
 			fontWeight: 300,
 			fontSize: '24px',
-			marginTop: '1em'
+			marginTop: '1em',
+			background: 'none'
 		},
 		item: {
 			verticalAlign: 'top',

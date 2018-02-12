@@ -24,11 +24,12 @@ export default function GigCardSmall({gig, ticketsByGig, handleJoin, handleLeave
 	const meta = gig.description 
 		|| (gig.acts.length && 'With ' + gig.acts.map(a=>a.name).join(', ')) 
 		|| '\u00A0'
+
 	return gig 
-			&& <Card link={true} href={`/gig/${gig._id}`} raised>
-					<Label attached="top left" basic style={{height: 'auto', padding: '0', border: 'none'}} >
-						<GigTime gig={gig} showDuration={false} showEnd={false} hideYears={true} style={{float:'left'}}/>
-					</Label>
+			&& <Card link={true} href={`./gig/${gig._id}`} raised>
+				<Label attached="top left" basic style={{height: 'auto', padding: '0', border: 'none'}} >
+					<GigTime gig={gig} showDuration={false} showEnd={false} hideYears={true} style={{float:'left'}}/>
+				</Label>
 				<Card.Header>
 					{gig.venue && <Label attached="top right" style={{padding:0, margin:0}}>
 						{/*<Link to={`/venue/${gig.venue._id}`}>*/}

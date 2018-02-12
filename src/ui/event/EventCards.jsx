@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Header, Card } from 'semantic-ui-react'
+import { Header, Card, Loader } from 'semantic-ui-react'
 
 import EventHeader from './EventHeader.jsx'
 import GigCardSmall from '../gig/GigCardSmall.jsx'
@@ -35,7 +35,7 @@ export default class EventCards extends React.Component {
 							/>
 						)}
 					</Card.Group>
-				|| 'Loadificating...'}
+				|| <Loader active>Loadificating...</Loader>}
 			</div>
 			|| null
 	}
