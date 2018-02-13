@@ -14,7 +14,7 @@ const style = {
 	}
 }
 
-export default class ActDetailsPage extends React.Component {
+export default class VenueDetailsPage extends React.Component {
 	state = {
 		venue: {},
 		gigs:[], 
@@ -64,8 +64,11 @@ export default class ActDetailsPage extends React.Component {
 
 	render() {
 		const { venue } = this.state
+		if(!venue) return null
 		const { gigs } = venue
-		const { history } = this.props
+		if(!gigs) return null
+		const ids = gigs.map(g=>g._id)
+		const filtered = gigs.filter(gig => gig.type !== 'Volunteer' && !ids.includes(gig.parent))
 
 		return (
 			<Card fluid raised>
@@ -79,7 +82,7 @@ export default class ActDetailsPage extends React.Component {
 				</Card.Header>
 				<Card.Content>
 					<List relaxed divided selection>
-					{gigs && gigs.map(gig =>
+					{filtered.map(gig =>
 
 						<GigItem 
 							key={gig._id} 

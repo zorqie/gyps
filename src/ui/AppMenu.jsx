@@ -4,7 +4,7 @@ import { Route, Link } from 'react-router-dom'
 import { Button, Container, Divider, Dropdown, Header, Icon, Image, List, Menu } from 'semantic-ui-react'
 
 const EventDropdown = ({match}) => (
-	<Dropdown item simple text='View'> 
+	<Dropdown item closeOnChange text='View'> 
 		<Dropdown.Menu>
 			<Dropdown.Item as={Link} to={`${match.url}/schedule`}>Schedule</Dropdown.Item>
 			<Dropdown.Item as={Link} to={`${match.url}/lineup`}>Lineup</Dropdown.Item>
@@ -29,7 +29,7 @@ const EventDropdown = ({match}) => (
 const UserDropdown = ({user, match, feathers}) => (
 	<Menu.Item>
 		<Icon name="user" />
-		<Dropdown simple closeOnChange inline >
+		<Dropdown  closeOnChange inline >
 			<Dropdown.Menu>
 				<Dropdown.Item as={Link} to="/my-profile">{user.email}</Dropdown.Item>
 				<Dropdown.Item as={Link} to="/my-lineup">My Lineup</Dropdown.Item>

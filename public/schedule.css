@@ -1,7 +1,7 @@
 html body * a {
 	color: inherit;
 }
-html body *, html body * i.icon, html body * button {
+html body div.container *, html body div.container * i.icon, html body div.container * button {
 	transition: all 0.4s !important;
 }
 html body * i.icon:hover {

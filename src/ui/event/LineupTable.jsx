@@ -34,15 +34,15 @@ const DateHeader = ({moment}) => <div className="cal-sheet">
 function LineupRow({gig, attending, onSelect, viewVenue, viewAct}) {
 	const acts = gig.acts && gig.acts.map(a=>a.name).join(', ') 
 	const { lineup } = styles
-	return <Table.Row onClick={onSelect.bind(null, gig)} >
+	return <Table.Row  >
 		
-			<Table.Cell width={4} style={lineup.time}>
+			<Table.Cell width={4} style={lineup.time} onClick={onSelect.bind(null, gig)}>
 				<GigTimespan gig={gig} hideDates={true} />
 				<span style={{float:'right'}}>
 					<GigJoinIcon gig={gig} attending={attending} size='large'/>
 				</span>
 			</Table.Cell>
-			<Table.Cell width={5} >
+			<Table.Cell width={5} onClick={onSelect.bind(null, gig)}>
 				<div style={lineup.name}>{gig.name}</div>
 				<div style={lineup.acts}>{acts ? 'With ' + acts : '\u00A0'}</div>
 			</Table.Cell>
@@ -75,7 +75,6 @@ export default function LineupTable ({ gigs, tickets, status, history }) {
 				{gigs.filter(gig => moment(gig.start).isSame(d, 'day'))
 					.sort(gigStartSort)
 					.map(gig => 
-						/*<Link  to={`gig/${gig._id}`}>*/
 						<LineupRow
 							key={gig._id}
 							gig={gig}
@@ -83,7 +82,6 @@ export default function LineupTable ({ gigs, tickets, status, history }) {
 							onSelect={viewItem(history, './gig/')}
 							viewVenue={viewItem(history, './venue/')}
 						/>
-						/*</Link>*/
 				)}
 				</Table.Body>
 			</Table>
