@@ -96,9 +96,9 @@ export default class App extends React.Component {
 		const { user, sidebar, event } = this.state
 		// console.log("APP.event", event)
 		return (
-			<div style={{ marginTop: '6em' }}>
+			<div>
 				<Route path="/:section?/:id?/:mode?" render={p => <AppMenu {...this.props} {...p} user={user} event={event}/>} />
-
+				<div style={{height: '6em'}}>{'\u00a0'}</div>
 				<Container>
 					<Switch>
 						<Route path="/" exact component={Home} />

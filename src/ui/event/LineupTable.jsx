@@ -36,13 +36,13 @@ function LineupRow({gig, attending, onSelect, viewVenue, viewAct}) {
 	const { lineup } = styles
 	return <Table.Row onClick={onSelect.bind(null, gig)} >
 		
-			<Table.Cell width={7} style={lineup.time}>
+			<Table.Cell width={4} style={lineup.time}>
 				<GigTimespan gig={gig} hideDates={true} />
 				<span style={{float:'right'}}>
 					<GigJoinIcon gig={gig} attending={attending} size='large'/>
 				</span>
 			</Table.Cell>
-			<Table.Cell width={5} style={lineup.gig}>
+			<Table.Cell width={5} >
 				<div style={lineup.name}>{gig.name}</div>
 				<div style={lineup.acts}>{acts ? 'With ' + acts : '\u00A0'}</div>
 			</Table.Cell>

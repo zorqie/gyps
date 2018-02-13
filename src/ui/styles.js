@@ -43,7 +43,6 @@ const styles = {
 		},
 		time: {
 			verticalAlign: 'top',
-			display: 'inline-block',
 			fontWeight: 300,
 		},
 		gig: {
