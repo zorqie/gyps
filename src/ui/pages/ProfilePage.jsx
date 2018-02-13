@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Form } from 'semantic-ui-react'
-import ReactiveForm from '../Form.jsx'
+import { Button, Form } from 'semantic-ui-react'
 
+const focus = el => el && el.focus()
 
 export default class ProfilePage extends React.Component {
 	state = {
@@ -11,6 +11,12 @@ export default class ProfilePage extends React.Component {
 		// 	displayName: 'Unknown', 
 		// 	last_event_id: '1234',
 		// }
+	}
+
+	handleChange = e => {
+		const { name, value } = e.target
+		const { profile } = this.state
+		this.setState({profile: {...profile, [name]:value}})
 	}
 
 	async componentWillMount() {
@@ -37,11 +43,13 @@ export default class ProfilePage extends React.Component {
 
 	}
 
-	saveProfile = profile => {
+	saveProfile = e => {
+		e.preventDefault()
 		const { feathers } = this.props
 		const user = feathers.get('user')
-		if (this.state.profile._id) {
-			feathers.service('profiles').patch(this.state.profile._id, {...profile, user_id: user._id})
+		const { profile } = this.state
+		if (profile._id) {
+			feathers.service('profiles').patch(profile._id, {...profile})
 		} else {
 			feathers.service('profiles').create({...profile, user_id: user._id})
 		}
@@ -51,25 +59,31 @@ export default class ProfilePage extends React.Component {
 
 	render () {
 		const { profile } = this.state
-		const buttons = { 
-			submit: { 
-				label: 'Save', 
-				handler: this.saveProfile 
-			} 
-		}
-		console.log("PROFILE.state", this.state)
-		return <div style={{margin: '2em'}}>
-			{profile && <ReactiveForm data={profile} {...buttons}> 
+		return profile && <Form style={{margin: '2em'}} onSubmit={this.saveProfile}>
 				<Form.Field>
-					<label>Display Name</label>
-					<input name='displayName' focused />
+					<label htmlFor='displayName'>Display Name</label>
+					<input 
+						name='displayName' 
+						value={profile.displayName || ''}
+						id='displayName' 
+						onChange={this.handleChange} 
+						ref={focus} 
+					/>
 				</Form.Field>
-				<Form.Input 
-					type="text"
-					name='last_event_id'
-					label="Last Event"
-				/>
-			</ReactiveForm>}
-		</div>
+				<Form.Field>
+					<label htmlFor='last_event_id'>Last Event</label>
+					<input 
+						name='last_event_id' 
+						value={profile.last_event_id || ''}
+						id='last_event_id' 
+						onChange={this.handleChange} 
+					/>
+				</Form.Field>
+				<div style={{textAlign:'right', borderTop:'1em'}}>
+					<Button primary type='submit'>Save</Button>
+				</div>
+
+		</Form>
+		|| null
 	}
 }

@@ -6,16 +6,7 @@ import { Button, Icon, Image, Item, List } from 'semantic-ui-react'
 
 import GigTimespan from '../GigTimespan.jsx'
 import JoinLeaveButton from '../JoinLeaveButton.jsx'
-
-// TODO this shoud be somewhere else, both files and logic
-const isAttending = (gig, tickets, status) => {
-	// console.log("GTS: ", gig, tickets, status)
-	return tickets && tickets.find(t => 
-		t.status === status
-		&& (t.gig_id === gig._id || t.gig.parent===gig._id)
-	)
-}
-
+import { isAttending } from '../utils.jsx'
 
 export default function GigItem({ gig, tickets, status='Attending', onSelect, ...others }) {
 	const { shifts } = gig

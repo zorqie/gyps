@@ -15,7 +15,7 @@ export const isAttending = (gig, tickets, status='Attending') => {
 	// console.log("GTS: ", gig, tickets, status)
 	return tickets && gig && tickets.find(t => 
 		t.status === status
-		&& (t.gig_id === gig._id || t.gig.parent===gig._id)
+		&& (t.gig_id === gig._id || (t.gig && t.gig.parent===gig._id))
 	)
 }
 

@@ -4,13 +4,7 @@ import { List } from 'semantic-ui-react'
 
 import GigJoinIcon from './GigJoinIcon.jsx'
 import GigTimespan from '../GigTimespan.jsx'
-
-const isAttending = (gig, tickets, status) => {
-	return tickets && tickets.find(t => 
-		t.status === status
-		&& (t.gig_id === gig._id || t.gig.parent===gig._id)
-	)
-}
+import { isAttending } from '../utils.jsx'
 
 
 function ShiftItem({shift, onClick, ...others}) {

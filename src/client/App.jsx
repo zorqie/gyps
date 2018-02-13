@@ -117,7 +117,7 @@ export default class App extends React.Component {
 				<Sidebar as={Message}
 					visible={sidebar.visible} 
 					content={sidebar.message}
-					negative={sidebar.error}
+					color={sidebar.error ? 'red' : 'black'}
 					direction='bottom' 
 					animation='overlay' 
 					width='thin' 

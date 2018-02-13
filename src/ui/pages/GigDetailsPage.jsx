@@ -4,18 +4,9 @@ import PropTypes from 'prop-types'
 import { Container, Loader } from 'semantic-ui-react'
 
 import errorHandler from '../errorHandler'
-import { viewItem, gigJoin, gigLeave } from '../utils.jsx'
+import { viewItem, gigJoin, gigLeave, isAttending } from '../utils.jsx'
 
 import GigCard from '../gig/GigCard.jsx'
-
-const isAttending = (gig, tickets, status) => {
-	// console.log("GTS: ", gig, tickets, status)
-	return tickets && tickets.find(t => 
-		t.status === status
-		&& (t.gig_id === gig._id || t.gig.parent===gig._id)
-	)
-}
-
 
 export default class GigDetailsPage extends React.Component {
 	state = {
