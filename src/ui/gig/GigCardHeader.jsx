@@ -6,10 +6,9 @@ import ActsList from '../ActsList.jsx'
 
 export default function GigCardHeader({gig, onActSelect}) {
 	const { shifts } = gig
-	return (<Card.Header>
-		
-		<h2>{gig.name}</h2>
-		<p>{gig.description}</p>
+	return (<Card.Content>
+		<Card.Header>{gig.name}</Card.Header>
+		<Card.Description>{gig.description}</Card.Description>
 		{shifts && !shifts.length 
 			&& <AttendanceLabel gig={gig} /> 
 			|| ''
@@ -18,6 +17,6 @@ export default function GigCardHeader({gig, onActSelect}) {
 			&& <ActsList acts={gig.acts} onSelect={onActSelect} title="With:" compact horizontal />
 			|| ''
 		}
-	</Card.Header>
+	</Card.Content>
 	)
 }

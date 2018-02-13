@@ -39,9 +39,7 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 					verticalAlign='middle'
 					src={`/images/${gig._id}_tile.jpg`} 
 				/>
-				<Card.Content>
-					<GigCardHeader gig={gig} onActSelect={viewItem(history, '/act/')} />
-				</Card.Content>
+				<GigCardHeader gig={gig} onActSelect={viewItem(history, '/act/')} />
 				<Card.Content extra>
 					{gig.shifts && gig.shifts.length
 						&& <ShiftList 
