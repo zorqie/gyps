@@ -2,25 +2,9 @@ import React from 'react'
 
 import { Button, Form, Loader } from 'semantic-ui-react'
 
+import EventProfileForm from '../event/EventProfileForm.jsx'
+
 const focus = el => el && el.focus()
-
-function ProfileField({field, state, onChange}) {
-	// console.log("FIELD", state)
-	const label = <label htmlFor={field.name} style={{textTransform: 'capitalize'}}>{field.label || field.name}</label>
-	const options = field.enum && field.enum.map(x => ({text: x})) || []
-	// const control = field.type==='enum' 
-	// 	? <input /> //<Form.Dropdown fluid selection options={field.enum} />
-	// 	: <input name={field.name} id={field.name} value={state && state[field.name] || ''} onChange={onChange} />
-
-	return <Form.Field 
-		label={label}
-		name={field.name}
-		control={field.type==='enum' ? Form.Select : Form.Input}
-		value={state && state[field.name] || ''}
-		onChange={onChange}
-		options={options}
-	/>
-}
 
 export default class ProfilePage extends React.Component {
 	state = {
@@ -59,16 +43,18 @@ export default class ProfilePage extends React.Component {
 					user_id: user._id,
 				}
 			})
-			if (profiles.length === 1) {
+			if (profiles.length > 0) {
 				// we don't need timestamps. TODO remove them in service/hooks
 				const { createdAt, updatedAt, ...profile } = profiles[0]
 				this.setState({ profiles, profile })
 			} else {
 				// new profile
+				const empty = {
+					displayName: user.name || ''
+				} 
 				this.setState({ 
-					profile: {
-						displayName: user.name || ''
-					} 
+					profile: empty, 
+					profiles: [empty],
 				})
 			}
 			const tickets = await feathers.service('tickets').find()
@@ -106,7 +92,7 @@ export default class ProfilePage extends React.Component {
 
 	render () {
 		const { profile, profiles, events } = this.state
-		console.log("Profiling...", this.state)
+		console.log("Profile.state: ", this.state)
 		return profiles.length &&
 			<div style={{margin: '2em'}}>
 				
@@ -127,20 +113,7 @@ export default class ProfilePage extends React.Component {
 				</div>
 
 			</Form>
-			{events && events.map(({_id, name, start, config}) => <Form key={_id}>
-				<h2>{name}</h2>
-				{config.user_profile.map((field, i) => 
-					<ProfileField key={i} field={field} state={this.state.profiles[i] || {}} onChange={this.handleProfile(i)} />) 
-				}
-				{/*{config.user_profile.map(field => <Form.Field key={field.name}>
-									<label htmlFor={field.name} style={{textTransform:'capitalize'}}>{field.label || field.name}</label>
-									<input 
-										name={field.name}
-										value={''}
-										id={field.name} 
-									/>
-								</Form.Field>)}*/}
-			</Form>)}
+			{events && events.map(event => <EventProfileForm key={event._id} event={event} />)}
 			</div> 
 		|| <Loader>Loading...</Loader>
 	}
