@@ -37,6 +37,10 @@ export default class ProfilePage extends React.Component {
 	async componentWillMount() {
 		const { feathers } = this.props
 		const user = feathers.get('user')
+		if (!user) {
+			feathers.emit('error', {code:401, message: 'Not authorificated.'})
+			return
+		}
 		try {
 			const profiles = await feathers.service('profiles').find({
 				query: {
