@@ -20,6 +20,9 @@ export default function ssr(app) {
 		if (req.originalUrl && req.originalUrl.indexOf('.') > 0) {
 			return next();
 		}
+		const z = app.authenticate('jwt')(req)
+
+		console.log("ZZZZZZZZZ: ",z)
 
 		const user = app.get('user')
 		if (user) {
