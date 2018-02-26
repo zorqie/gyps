@@ -36,25 +36,16 @@ export default class VenueDetailsPage extends React.Component {
 	}
 
 	async fetchData() {
-		const { venueId } = this.props.match.params
 		const { feathers } = this.props
 		// console.log("Looking for parent: " + parentId)
 		try {
+			const { venueId } = this.props.match.params
 			const venue = await feathers.service('venues').get(venueId)
-			// const result = await feathers.service('gigs').find({
-			// 	query: {
-			// 		venue_id: venue._id, 
-			// 		parent: {$exists: true}, // should be "this" event but we don't have such
-			// 		$sort: { start: 1 },
-			// 	}
-			// })
-			// const data = result.data || result
-			// // console.log("DATA", data)
-			// const ids = data.map(g => g._id)
-			// const gigs = data.filter(g => !ids.includes(g.parent))
-			// console.log("GIGS", gigs)
+			
 			this.setState({...this.state, venue})
-			document.title = venue.name
+			if (typeof document !== 'undefined') {
+				document.title = venue.name
+			}
 		} catch (error) {
 			feathers.emit("error", error)
 		} 
@@ -83,7 +74,6 @@ export default class VenueDetailsPage extends React.Component {
 				<Card.Content>
 					<List relaxed divided selection>
 					{filtered.map(gig =>
-
 						<GigItem 
 							key={gig._id} 
 							{...this.props}

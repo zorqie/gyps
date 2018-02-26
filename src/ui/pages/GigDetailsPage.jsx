@@ -59,7 +59,7 @@ export default class GigDetailsPage extends React.Component {
 	render() {
 		const { gig, loaded } =  this.state
 		const { tickets, feathers, history } = this.props
-		// console.log("GigDetails.tickets", tickets)
+		console.log("GigDetails.tickets", tickets)
 		const status = gig.type==='Volunteer' ? 'Volunteering' : 'Attending'
 		const attending = gig.shifts && gig.shifts.length===0 && isAttending(gig, tickets, status)
 		// console.log("GigDetails.attending? ", attending)

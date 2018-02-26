@@ -6,23 +6,14 @@ import App from './client/App.jsx'
 
 export default function ssr(app) {
 	// TODO this doesn't belong here. Anywhere?
-	app.on('logout', () => {
-		console.log("OUTING...")
-		app.set('user', null)
-	})
-/*
-	app.on('login', what => {
-		console.log("INNING...") 
-		
-	})
-*/
 	return (req, res, next) => {
 		if (req.originalUrl && req.originalUrl.indexOf('.') > 0) {
 			return next();
 		}
-		const z = app.authenticate('jwt')(req)
-
-		console.log("ZZZZZZZZZ: ",z)
+		
+		req.app.authenticate('jwt')(req)
+		.then((result = {}) => result.fail || console.log("SSR Authorificated", result))
+		.catch(error => console.log("SSR Rejectified: ", error))
 
 		const user = app.get('user')
 		if (user) {

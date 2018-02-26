@@ -10,6 +10,8 @@ const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
 
+const cookieParser = require('cookie-parser');
+const { authenticate } = require('@feathersjs/authentication').express;
 
 const middleware = require('./middleware');
 const {services, authentication} = require('gyps-server');
@@ -31,9 +33,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 
 // Host the public folder
-app.use('*', ssr(app));
+app.get('*', cookieParser(), /*authenticate('jwt', {failureRedirect: '/nah'}),*/ ssr(app));
 app.use('/images', express.static(app.get('public') + '/assets', {fallthrough: true}))
-app.get('/images/*', function(req, res) {
+app.use('/images/*', function(req, res) {
   res.sendFile(path.join(app.get('public'), '/assets/default.jpg'))
 });
 
@@ -57,6 +59,18 @@ app.use(function (req, res, next) {
   console.log("NOT FOUND: ", req.url);
   res.status(404).send("Sorry can't find that!" + req);
 })
+
+	app.on('logout', (result, meta) => {
+		console.log("OUTING...", meta && meta.provider)
+		app.set('user', null)
+	})
+
+	app.on('login', what => {
+		console.log("INNING...") 
+		
+	})
+
+
 
 app.use(express.errorHandler({ logger }));
 

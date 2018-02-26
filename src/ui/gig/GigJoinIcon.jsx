@@ -5,7 +5,7 @@ import { Icon } from 'semantic-ui-react'
 import app from '../../client/feathers'
 import { gigJoin, gigLeave } from '../utils.jsx'
 
-export default function GigJoinButton({gig, attending, status='Attending', size='big', handleJoin = ()=>{}, handleLeave = ()=>{}}) {
+export default function GigJoinIcon({gig, attending, status='Attending', size='big', handleJoin = ()=>{}, handleLeave = ()=>{}}) {
 	return (
 		// isAttending(gig, tickets, status) 
 		gig.mandatory 

@@ -63,12 +63,12 @@ export default class ProfilePage extends React.Component {
 			}
 			const tickets = await feathers.service('tickets').find()
 			if (tickets.length) {
-				const gigs = tickets.filter(t => t.gig).map(t => t.gig)
-				const gids = gigs.map(e => e._id).filter((e, i, a) => a.indexOf(e)===i)
+				const gids = tickets.filter(t => t.gig).map(t => t.gig_id)
+				const unique = gids.filter((e, i, a) => a.indexOf(e)===i)
 				const events = await feathers.service('events').find({
 					query: {
 						type: 'Event',
-						_id: {$in: gids},
+						_id: {$in: unique},
 						$sort: { start: 1}
 					}
 				})

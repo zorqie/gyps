@@ -50,6 +50,11 @@ const pages = [
 		exact: true,
 		component: EventsListPage,
 	},
+	{
+		path: '/my-profile',
+		exact: true,
+		component: ProfilePage,
+	},
 ]
 
 export default class App extends React.Component {
@@ -76,7 +81,6 @@ export default class App extends React.Component {
 			console.error("Looking in the wrong place for the wrong thing?", error);
 			history.push('/nonesuch');
 		} else {
-			console.error("Errified: ", error);
 			console.error("Errorized: " + JSON.stringify(error));
 		}
 		this.setState({sidebar: {visible: true, error: true, message: error.message}})
@@ -104,10 +108,14 @@ export default class App extends React.Component {
 						<Route path="/" exact component={Home} />
 
 						{pages.map(({path, component: Component, ...others}) => 
-							<Route key={path} {...others} path={path} render={props => <Component {...this.props} {...props} user={user} />} />
+							<Route 
+								key={path} 
+								{...others} 
+								path={path} 
+								render={props => <Component {...this.props} {...props} user={user} />} 
+							/>
 						)}
 						
-						<Route path="/my-profile" exact render={p => <ProfilePage {...this.props} {...p}/>} />
 						<Route path="/login" render={p => <LoginForm {...this.props} {...p}/>} />
 						<Route path="/signup" render={p => <SignupForm {...this.props} {...p}/>} />
 						<Route path="/logout" render={p => (feathers.logout(), feathers.emit('logout'), p.history.push('/')), null} />

@@ -11,7 +11,7 @@ function ProfileField({field, value, onChange}) {
 	// const control = field.type==='enum' 
 	// 	? <input /> //<Form.Dropdown fluid selection options={field.enum} />
 	// 	: <input name={field.name} id={field.name} value={state && state[field.name] || ''} onChange={onChange} />
-	const control =  field.type==='enum' || (field.type && field.type.code) ? Form.Select : Form.Input
+	const control = field.type==='enum' || (field.type && field.type.code) ? Form.Select : Form.Input
 	return <Form.Field 
 		label={label}
 		name={field.name}
@@ -46,9 +46,9 @@ export default class EventProfileForm extends React.Component {
 		}
 	}
 	render() {
-		const {_id, name, start, config} = this.props.event
+		const { name, start, config } = this.props.event
 		// console.log('EventProfileForm.state', this.state)
-		return <Form key={_id} onSubmit={this.handleSubmit}>
+		return <Form onSubmit={this.handleSubmit}>
 				<h2 style={{fontWeight: 300}}>{name}</h2>
 				{config.user_profile.map((field, i) => 
 					<ProfileField key={i} field={field} value={this.state.profile[field.name]} onChange={this.handleChange} />) 

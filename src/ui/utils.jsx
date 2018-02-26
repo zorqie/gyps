@@ -28,6 +28,7 @@ export const gigJoin = (app, status='Attending') => (gig, e) => {
 		e.preventDefault()
 		e.stopPropagation()
 	}
+	
 	const ticket = {gig_id: gig._id, status}
 	app.service('tickets').create(ticket)
 	// .then(t => console.log(t, "Created in ", performance.now() - start))

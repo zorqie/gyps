@@ -27,6 +27,7 @@ export default class EventPage extends React.Component {
 	async componentWillMount() {
 		const { eventId } = this.props.match.params
 		const { feathers, user } = this.props
+		feathers.on('logout', () => this.setState({ tickets: [] }))
 		feathers.service('tickets').on('created', this.ticketCreated)
 		feathers.service('tickets').on('removed', this.ticketRemoved)
 		feathers.service('tickets').on('patched', this.ticketPatched)
@@ -103,19 +104,6 @@ export default class EventPage extends React.Component {
 		return (
 			<div>
 				<Switch>
-				{/*<Route 
-					path={`${match.url}/lineup`}
-					render={() => <LineupPage tickets={tickets} />}
-				/>
-				<Route 
-					path={`${match.url}/schedule`}
-					render={() => <Schedule {...this.props} tickets={tickets} />}
-				/>
-				<Route 
-					path={`${match.url}/act/:actId`}
-					render={props => <ActDetailsPage {...this.props} {...props}  tickets={tickets} />}
-				/>
-				*/}
 				
 				<Route 
 					path={`/event/:eventId/venue/:venueId`}

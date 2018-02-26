@@ -49,13 +49,15 @@ export default function GigCard({gig, tickets, attending, handleJoin, handleLeav
 							handleJoin={handleJoin}
 							handleLeave={handleLeave}
 							/>
-						|| <GigJoinButton 
+						|| (tickets && <GigJoinButton 
 							gig={gig} 
 							attending={attending}
 							handleJoin={handleJoin}
 							handleLeave={handleLeave}
 							showLabels={true}
 							/>
+							|| null
+							)
 					}
 				</Card.Content>
 			</Card>
