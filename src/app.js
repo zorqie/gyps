@@ -62,7 +62,7 @@ app.use(function (req, res, next) {
 
 	app.on('logout', (result, meta) => {
 		console.log("OUTING...", meta && meta.provider)
-		app.set('user', null)
+		// app.set('user', null)
 	})
 
 	app.on('login', what => {

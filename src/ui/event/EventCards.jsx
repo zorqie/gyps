@@ -16,17 +16,13 @@ const gigFilter = gig => !(gig.mandatory || excluded.includes(gig.type))
 export default class EventCards extends React.Component {
 	render() {
 		const { event, tickets, feathers, match } = this.props
-		// const status = this.props.match.params.type === 'Volunteer' ? 'Volunteering' : 'Attending' // TODO this is meaningless
 		if (!event) {
 			return null
 		}
 
 		const { gigs } = event
-		// console.log("GIGGGINGING: ", gigs);
 
-		return event && <div>
-				<ScrollToTopOnMount />
-			    <EventHeader event={event} />
+		return <div>
 				{gigs.length 
 					&& <Card.Group centered doubling stackable className="centered">
 						{gigs.filter(gigFilter).map(gig => 
@@ -38,9 +34,9 @@ export default class EventCards extends React.Component {
 							/>
 						)}
 					</Card.Group>
-				|| <Loader active>Loadificating...</Loader>}
+					|| <Loader active>Loadificating...</Loader>
+				}
 			</div>
-			|| null
 	}
 }
 								// rightIconButton={<Kspan><JoinLeaveButton gig={gig} {...this.props} /></Kspan>}

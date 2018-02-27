@@ -21,7 +21,8 @@ export default function GigItem({ gig, tickets, status='Attending', onSelect, ..
 				size='small' 
 				src={`/images/${gig._id}_tile.jpg`}
 			/>
-			<List.Content floated='right'>
+			{tickets 
+				&& <List.Content floated='right'>
 				{shifts && shifts.length 
 					&& <Icon 
 						name={attending ? 'calendar minus' : 'calendar plus'} 
@@ -35,7 +36,9 @@ export default function GigItem({ gig, tickets, status='Attending', onSelect, ..
 						attending={attending}
 					/>
 				}
-			</List.Content>
+				</List.Content>
+				|| null
+			}
 			<List.Content  floated='left'>
 				<Item.Extra>
 					<GigTimespan gig={gig} />

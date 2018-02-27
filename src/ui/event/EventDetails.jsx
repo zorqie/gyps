@@ -2,9 +2,7 @@ import React from 'react'
 
 import { Container, List } from 'semantic-ui-react'
 
-import EventHeader from './EventHeader.jsx'
 import GigItem from '../gig/GigItem.jsx'
-import ScrollToTopOnMount from '../ScrollTop.jsx'
 
 import { viewItem } from '../utils.jsx'
 // import JoinLeaveButton from './JoinLeaveButton.jsx'
@@ -17,8 +15,7 @@ export default class EventDetails extends React.Component {
 		const gigs = type ? event.gigs.filter(g => type.includes(g.type)) : event.gigs
 
 		return event && <Container text>
-				<ScrollToTopOnMount />
-			    <EventHeader event={event} />
+				
 				{gigs.length 
 					&& <List relaxed divided selection  verticalAlign='middle'>
 						{gigs.map(gig => 

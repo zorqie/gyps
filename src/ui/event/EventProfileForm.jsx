@@ -24,7 +24,7 @@ function ProfileField({field, value, onChange}) {
 
 export default class EventProfileForm extends React.Component {
 	state = {
-		profile: {},
+		profile: this.props.profile || {},
 	}
 	handleChange = (e, { name, value }) => this.setState({profile: {...this.state.profile, [name]: value} })
 	handleSubmit = e => {

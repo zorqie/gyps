@@ -3,12 +3,15 @@ import React from 'react'
 import { Link, Route, Redirect, Switch } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
 
-import EventDetails from '../event/EventDetails.jsx'
 import EventCards from '../event/EventCards.jsx'
+import EventDetails from '../event/EventDetails.jsx'
+import EventHeader from '../event/EventHeader.jsx'
 import GigDetailsPage from './GigDetailsPage.jsx'
 import VenueDetailsPage from './VenueDetailsPage.jsx'
 import LineupPage from './LineupPage.jsx'
 import Schedule from '../Schedule.jsx'
+import ScrollToTopOnMount from '../ScrollTop.jsx'
+
 // import VenuePage from './VenuePage.jsx'
 // import ActDetailsPage from './ActDetailsPage.jsx'
 import { ticketsByGig } from '../utils.jsx'
@@ -102,7 +105,9 @@ export default class EventPage extends React.Component {
 		const { user, feathers, match } = this.props
 		// console.log("EventPage.event", event)
 		return (
-			<div>
+			event && <div>
+				<ScrollToTopOnMount />
+			    <EventHeader event={event} />
 				<Switch>
 				
 				<Route 
@@ -132,18 +137,17 @@ export default class EventPage extends React.Component {
 				<Route 
 					path={`/event/:eventId/:type?`}
 					exact
-					render={props => 
-						(event && <EventDetails 
+					render={props => <EventDetails 
  							{...this.props}
  							{...props} 
  							event={event} 
  							gigs={event.gigs} 
  							tickets={tickets} 
- 						/>) 
- 						|| <Loader active>Loading...</Loader>}
+ 						/>}
 				/>
 				</Switch>
 			</div> 
+ 			|| <Loader active>Loading...</Loader>
 		)
 	}
 }
