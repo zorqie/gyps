@@ -89,12 +89,22 @@ export default class App extends React.Component {
 	}
 	componentWillMount() {
 		const { feathers } = this.props
-		feathers.on('user.login', user => this.setState({user}))
-		feathers.on('user.event', event => this.setState({event}))
-		feathers.on('logout', () => this.setState({ user: null }))
+		feathers.on('user.login', thie.setUser)
+		feathers.on('user.event', this.setEvent)
+		feathers.on('logout', this.setUser)
 		feathers.on('error', this.showError)
 		feathers.on('message', this.showMessage)
 	}
+	componentWillUnmount() {
+		const { feathers } = this.props
+		feathers.removeListener('user.login', this.setUser)
+		feathers.removeListener('user.event', this.setEvent)
+		feathers.removeListener('logout', this.setUser)
+		feathers.removeListener('error', this.showError)
+		feathers.removeListener('message', this.showMessage)
+	}
+	setUser = (user = null) => this.setState({ user })
+	setEvent = event => this.setState({ event })
 	render() {
 		const { feathers, history } = this.props
 		const { user, sidebar, event } = this.state
