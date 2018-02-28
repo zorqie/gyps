@@ -8,35 +8,32 @@ import GigTimespan from '../GigTimespan.jsx'
 import ScrollToTopOnMount from '../ScrollTop.jsx'
 
 import { viewGig } from '../utils.jsx'
-// import JoinLeaveButton from './JoinLeaveButton.jsx'
 
 const excluded = ['Meal', 'Volunteer']
 const gigFilter = gig => !(gig.mandatory || excluded.includes(gig.type)) 
 
 export default class EventCards extends React.Component {
 	render() {
-		const { event, tickets, feathers, match } = this.props
+		const { event, tickets, history, match } = this.props
 		if (!event) {
 			return null
 		}
 
 		const { gigs } = event
-
-		return <div>
-				{gigs.length 
+		const selectGig = viewGig(history, `./gig/`)
+		return 	gigs.length 
 					&& <Card.Group centered doubling stackable className="centered">
 						{gigs.filter(gigFilter).map(gig => 
 							<GigCardSmall 
 								key={gig._id} 
 								{...this.props}
 								gig={gig}
-								onSelect={viewGig(feathers, `${match.url}/gig/`)}
+								onSelect={selectGig.bind(null, gig)}
 							/>
 						)}
 					</Card.Group>
 					|| <Loader active>Loadificating...</Loader>
-				}
-			</div>
+				
 	}
 }
 								// rightIconButton={<Kspan><JoinLeaveButton gig={gig} {...this.props} /></Kspan>}

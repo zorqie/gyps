@@ -26,6 +26,7 @@ export default class VenueDetailsPage extends React.Component {
 		feathers.service('gigs').on('created', this.fetchData)
 		feathers.service('gigs').on('patched', this.fetchData)
 		feathers.service('gigs').on('removed', this.fetchData)
+		console.log("VENUE MOUNTED.")
 	}
 	
 	componentWillUnmount() {
@@ -33,6 +34,7 @@ export default class VenueDetailsPage extends React.Component {
 		feathers.service('gigs').removeListener('created', this.fetchData)
 		feathers.service('gigs').removeListener('patched', this.fetchData)
 		feathers.service('gigs').removeListener('removed', this.fetchData)
+		console.log("VENUE UNMOUNTED.")
 	}
 
 	async fetchData() {
@@ -54,6 +56,7 @@ export default class VenueDetailsPage extends React.Component {
 	selectGig = gig => this.props.history.push('../gig/'+gig._id)
 
 	render() {
+		// console.log("VENUEING\n....\n...\n..\n.\n")
 		const { venue } = this.state
 		if(!venue) return null
 		const { gigs } = venue

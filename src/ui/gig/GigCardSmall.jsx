@@ -19,14 +19,14 @@ const styles = {
 	}
 }
 
-export default function GigCardSmall({gig, ticketsByGig, handleJoin, handleLeave, viewActDetails, history}) {
+export default function GigCardSmall({gig, ticketsByGig, handleJoin, handleLeave, viewActDetails, onSelect, history}) {
 	const label = gig.type!=='Performance' ? {content: gig.type, color: 'orange', attached:'bottom left'} : null
 	const meta = gig.description 
 		|| (gig.acts.length && 'With ' + gig.acts.map(a=>a.name).join(', ')) 
 		|| '\u00A0'
 
 	return gig 
-			&& <Card link={true} href={`./gig/${gig._id}`} raised>
+			&& <Card  onClick={onSelect} raised>
 				<Label attached="top left" basic style={{height: 'auto', padding: '0', border: 'none'}} >
 					<GigTime gig={gig} showDuration={false} showEnd={false} hideYears={true} style={{float:'left'}}/>
 				</Label>
