@@ -87,7 +87,7 @@ export default class App extends React.Component {
 		setTimeout(() => this.setState({sidebar: {visible: false, error: false}}), 4000)
 		console.log("SHOW error:", error)
 	}
-	componentWillMount() {
+	componentDidMount() {
 		const { feathers } = this.props
 		feathers.on('user.login', this.setUser)
 		feathers.on('user.event', this.setEvent)
@@ -97,11 +97,11 @@ export default class App extends React.Component {
 	}
 	componentWillUnmount() {
 		const { feathers } = this.props
-		feathers.removeListener('user.login', this.setUser)
-		feathers.removeListener('user.event', this.setEvent)
-		feathers.removeListener('logout', this.setUser)
-		feathers.removeListener('error', this.showError)
-		feathers.removeListener('message', this.showMessage)
+		feathers.removeAllListeners('user.login')
+		feathers.removeAllListeners('user.event')
+		feathers.removeAllListeners('logout')
+		feathers.removeAllListeners('error')
+		feathers.removeAllListeners('message')
 	}
 	setUser = (user = null) => this.setState({ user })
 	setEvent = event => this.setState({ event })

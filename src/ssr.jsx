@@ -24,6 +24,13 @@ export default function ssr(app) {
 		const context = {} // not sure how this is useful
 		console.log("SSR.url=", req.originalUrl)
 
+		// App adds listeners on mount but we're never unmounted on the server 
+		app.removeAllListeners('user.login')
+		app.removeAllListeners('user.event')
+		// app.removeAllListeners('logout')
+		app.removeAllListeners('error')
+		app.removeAllListeners('message')
+
 		const html = ReactDOMServer.renderToString(
 			<StaticRouter
 				location={req.originalUrl}
