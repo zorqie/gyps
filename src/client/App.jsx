@@ -89,7 +89,7 @@ export default class App extends React.Component {
 	}
 	componentWillMount() {
 		const { feathers } = this.props
-		feathers.on('user.login', thie.setUser)
+		feathers.on('user.login', this.setUser)
 		feathers.on('user.event', this.setEvent)
 		feathers.on('logout', this.setUser)
 		feathers.on('error', this.showError)
