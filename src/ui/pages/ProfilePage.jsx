@@ -117,7 +117,7 @@ export default class ProfilePage extends React.Component {
 				</div>
 
 			</Form>
-			{profiles.map(event => <EventProfileForm key={event._id} event={event} />)}
+			{profiles.map((profile, i) => <EventProfileForm key={i} event={events.find(e => e._id===profile.event_id)} profile={profile}/>)}
 			</div> 
 		|| <Loader>Loading...</Loader>
 	}

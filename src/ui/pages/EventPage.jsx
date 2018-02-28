@@ -6,6 +6,7 @@ import { Loader } from 'semantic-ui-react'
 import EventCards from '../event/EventCards.jsx'
 import EventDetails from '../event/EventDetails.jsx'
 import EventHeader from '../event/EventHeader.jsx'
+import EventProfilePage from './EventProfilePage.jsx'
 import GigDetailsPage from './GigDetailsPage.jsx'
 import VenueDetailsPage from './VenueDetailsPage.jsx'
 import LineupPage from './LineupPage.jsx'
@@ -129,6 +130,10 @@ export default class EventPage extends React.Component {
 				<Route 
 					path={`/event/:eventId/schedule`}
 					render={() => <Schedule {...this.props} event={event} />}
+				/>
+				<Route 
+					path={`/event/:eventId/profile`}
+					render={() => <EventProfilePage {...this.props} event={event} />}
 				/>
 				<Route 
 					path={`/my-schedule`}

@@ -31,16 +31,16 @@ const DateHeader = ({moment}) => <div className="cal-sheet">
 </div>
 	
 
-function LineupRow({gig, attending, onSelect, viewVenue, viewAct}) {
+function LineupRow({gig, attending, showAttending, onSelect, viewVenue, viewAct}) {
 	const acts = gig.acts && gig.acts.map(a=>a.name).join(', ') 
 	const { lineup } = styles
 	return <Table.Row  >
 		
 			<Table.Cell width={4} style={lineup.time} onClick={onSelect.bind(null, gig)}>
 				<GigTimespan gig={gig} hideDates={true} />
-				<span style={{float:'right'}}>
+				{showAttending && <span style={{float:'right'}}>
 					<GigJoinIcon gig={gig} attending={attending} size='large'/>
-				</span>
+				</span>}
 			</Table.Cell>
 			<Table.Cell width={5} onClick={onSelect.bind(null, gig)}>
 				<div style={lineup.name}>{gig.name}</div>
@@ -78,6 +78,7 @@ export default function LineupTable ({ gigs, tickets, status, history }) {
 						<LineupRow
 							key={gig._id}
 							gig={gig}
+							showAttending={tickets && tickets.length}
 							attending={isAttending(gig, tickets, status)}
 							onSelect={viewItem(history, './gig/')}
 							viewVenue={viewItem(history, './venue/')}

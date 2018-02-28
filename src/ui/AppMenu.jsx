@@ -13,7 +13,8 @@ const EventDropdown = ({match}) => (
 			<Dropdown.Item as={Link} to={`${match.url}/Workshop`}>Workshops</Dropdown.Item>
 			<Dropdown.Item as={Link} to={`${match.url}/Performance`}>Performances</Dropdown.Item>
 			<Dropdown.Divider />
-			<Dropdown.Item>
+			<Dropdown.Item as={Link} to={`${match.url}/profile`}>Profile</Dropdown.Item>
+			{/*<Dropdown.Item>
 				<i className='dropdown icon' />
 				<span className='text'>Submenu</span>
 				<Dropdown.Menu>
@@ -21,7 +22,7 @@ const EventDropdown = ({match}) => (
 					<Dropdown.Item>List Item 2</Dropdown.Item>
 				</Dropdown.Menu>
 			</Dropdown.Item>
-			<Dropdown.Item>List Item</Dropdown.Item>
+			<Dropdown.Item>List Item</Dropdown.Item>*/}
 		</Dropdown.Menu>
 	</Dropdown>
 )
@@ -42,7 +43,7 @@ const UserDropdown = ({user, match, feathers}) => (
 )
 
 export default function AppMenu(props) {
-	const { feathers, user, event } = props
+	const { user, event } = props
 	// console.log("AppMenu.props", props.match)
 	return <Menu fixed='top' inverted>
 			<Container>
@@ -54,11 +55,11 @@ export default function AppMenu(props) {
 					/>
 					{event && event.name || 'Roots'}
 				</Menu.Item>
-				<Menu.Item as={Link} to='/events'>Events</Menu.Item>
 				<Route 
 					path='/event/:eventId'
 					render={p => <EventDropdown {...props} {...p} />}
 				/>
+				<Menu.Item as={Link} to='/events'>All events</Menu.Item>
 				<Menu.Menu position='right'>
 					{!user && <Menu.Item >
 							<Button as={Link} to='/login'>Login</Button>
